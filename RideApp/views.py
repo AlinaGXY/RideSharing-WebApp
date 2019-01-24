@@ -48,15 +48,25 @@ class RideListView(ListView):
     model = Rides
     template_name = 'rides_list.html'
     ordering = ['-arrival_time']
-    context_object_name
+    context_object_name = "context"
+    user = User.objects.filter(id = self.kwargs['pk'])
 
     def get_queryset(self):
-        if user.group.filter(name = 'Driver'):
+        if user.group.filter(name = 'Driver').exists():
             rides = Rides.objects.filter(driver = user.username)
         else:
             rides = User.objects.filter(passenger = user)
         return rides
+    
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get the context
+        context = super(RideListView, self).get_context_data(**kwargs)
+        # Create any data and add it to the context
+        context['user'] = user
+        return context
 
+@login_required
 class RideDetailView(DetailView):
     model = Rides
     template_name = 'rides_detail.html'
+    context_object_name = "ride"

@@ -25,6 +25,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name = 'login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name = 'logout'),
     path('profile/', views.profile, name = 'profile'),
-    path('rides/user/<user_id>/', views.RideListView.as_view(), name = 'user-rides')
-    path('rides/<Rides_id>', views.RideDetailView.as_view(), name = 'ride-detail')
+    path('rides/user/<int:pk>/', views.RideListView.as_view(), name = 'user-rides'),
+    path('rides/<int:pk>/', views.RideDetailView.as_view(), name = 'ride-detail'),
+    path()
 ]
