@@ -7,6 +7,8 @@ from django.views.generic import ListView, DetailView
 
 from .models import Rides, Vehicle
 
+import .form
+
 # Create your views here.
 def register(request):
     if request.method == 'POST':
@@ -43,30 +45,67 @@ def login(request):
 def profile(request):
     return render(request, 'profile.html')
 
-@login_required
+@method_decorator(login_required, name='dispatch')
 class RideListView(ListView):
     model = Rides
     template_name = 'rides_list.html'
     ordering = ['-arrival_time']
     context_object_name = "context"
-    user = User.objects.filter(id = self.kwargs['pk'])
 
     def get_queryset(self):
+        user = self.request.user
         if user.group.filter(name = 'Driver').exists():
             rides = Rides.objects.filter(driver = user.username)
         else:
             rides = User.objects.filter(passenger = user)
         return rides
     
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get the context
-        context = super(RideListView, self).get_context_data(**kwargs)
-        # Create any data and add it to the context
-        context['user'] = user
-        return context
+    # def get_context_data(self, **kwargs):
+    #     # Call the base implementation first to get the context
+    #     context = super(RideListView, self).get_context_data(**kwargs)
+    #     # Create any data and add it to the context
+    #     context['user'] = self.request.user
+    #     return context
 
-@login_required
+@method_decorator(login_required, name='dispatch')
 class RideDetailView(DetailView):
     model = Rides
     template_name = 'rides_detail.html'
     context_object_name = "ride"
+
+    # def get_context_data(self, **kwargs):
+    #     # Call the base implementation first to get the context
+    #     context = super(RideDetailView, self).get_context_data(**kwargs)
+    #     context['user'] = request.user
+    #     return context
+
+@login_required
+def RideCreate(request):
+    if request.method == 'POST':
+        form = RideCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            request.user.groups.add("Owner")
+        else:
+            return render(request, 'create_ride.html', {'form': form})
+    else:
+        form = RideCreateForm()
+
+    return render(request, 'create_ride.html', {'form': form})
+
+@method_decorator(login_required, name='dispatch')
+class RideUpdateView(UpdateView):
+    model = Ride
+    fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
+    template_name = 'ride_edit.html'
+    context_object_name = 'ride'
+
+
+@login_required
+def RideJoin(request):
+    user = request.user
+    user.groups.add("Sharer")
+    ride = Rides.objects.filter(pk = request.ride_id)
+    ride.status = 'shared'
+    ride.passengers.add(user)
+    return render(request, 'rides_list.html')
