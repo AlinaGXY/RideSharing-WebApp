@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+from .models import *
+
 class UserCreationForm(UserCreationForm):
     email = forms.EmailField(label="Email", required=True)
 
@@ -16,18 +18,23 @@ class LoginForm(forms.Form):
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
 
 
-class RideCreateForm(forms.ModelForm):
+class RoleForm(forms.Form):
     class Meta:
-        model = Rides
-        fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
+        model = Role
+        fields = ("name")
 
-    def clean_arrival_time(self):
-        data = self.cleaned_data['arrival_time']
+# class RideCreateForm(forms.ModelForm):
+#     class Meta:
+#         model = Rides
+#         fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
+
+#     def clean_arrival_time(self):
+#         data = self.cleaned_data['arrival_time']
         
-        # Check if a date is not in the past. 
-        if data < datetime.now():
-            raise ValidationError('Invalid date time')
+#         # Check if a date is not in the past. 
+#         if data < datetime.now():
+#             raise ValidationError('Invalid date time')
 
-        # Remember to always return the cleaned data.
-        return data
+#         # Remember to always return the cleaned data.
+#         return data
 

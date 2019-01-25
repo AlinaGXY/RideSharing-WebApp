@@ -22,13 +22,15 @@ urlpatterns = [
     path('', views.register),
     path('admin/', admin.site.urls),
     path('register/', views.register, name = 'register'),
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name = 'login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name = 'logout'),
+    path('login/', views.login_view, name = 'login'),
+    path('role/', views.chooseRole, name = 'choose-role'),
+    path('logout/', views.logout_view, name = 'logout'),
     path('profile/', views.profile, name = 'profile'),
-    path('allRides/', views.RideListView.as_view(), name = 'user-rides'),
-    path('allRides/<int:pk>/', views.RideDetailView.as_view(), name = 'ride-detail'),
-    path('rides/create/', views.RideCreate, name = 'create-new-ride'),
-    path('rides/<int:pk>/edit', views.RideUpdateView.as_view(), name = 'ride-edit'),
-    path('rides/<int:ride_id>/join/', views.RideJoin, name = 'join-ride'),
-    path('rides/<int:pk>/confirm/')
+    # path('allRides/', views.RideListView.as_view(), name = 'user-rides'),
+    # path('allRides/<int:pk>/', views.RideDetailView.as_view(), name = 'ride-detail'),
+    # path('rides/create/', views.RideCreate, name = 'create-new-ride'),
+    # path('rides/<int:pk>/edit', views.RideUpdateView.as_view(), name = 'ride-edit'),
+    # path('rides/<int:user_id>/search'),
+    # path('rides/<int:ride_id>/join/', views.RideJoin, name = 'join-ride'),
+    # path('rides/<int:pk>/confirm/')
 ]
