@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from datetime import datetime
 
 from .models import *
-
+from django.core.exceptions import ValidationError
 class UserCreationForm(UserCreationForm):
     email = forms.EmailField(label="Email", required=True)
 

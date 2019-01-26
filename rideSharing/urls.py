@@ -29,7 +29,7 @@ urlpatterns = [
     path('profile/', views.profile, name = 'profile'),
     # path('allRides/', views.RideListView.as_view(), name = 'user-rides'),
     # path('allRides/<int:pk>/', views.RideDetailView.as_view(), name = 'ride-detail'),
-    # path('rides/create/', views.RideCreate, name = 'create-new-ride'),
+     path('ridescreate/', views.RideCreate, name = 'create-new-ride')
     # path('rides/<int:pk>/edit', views.RideUpdateView.as_view(), name = 'ride-edit'),
     # path('rides/<int:user_id>/search'),
     # path('rides/<int:ride_id>/join/', views.RideJoin, name = 'join-ride'),
