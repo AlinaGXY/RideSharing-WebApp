@@ -48,12 +48,13 @@ def chooseRole(request):
         if form.is_valid():
             role_name = form.cleaned_data['name']
             curusr = request.user
-            if(Role.objects.filter(users=curusr).count()):
+            if Role.objects.filter(users=curusr).count():
                 oldRolename = Role.objects.filter(users=curusr)[0].name
                 oldrole, created = Role.objects.get_or_create(
                     name=oldRolename,
                 )
                 oldrole.users.remove(curusr)
+                
             role, created = Role.objects.get_or_create(
                 name = role_name,
             )
@@ -136,15 +137,21 @@ def profile(request):
 
 @login_required
 def RideCreate(request):
+    if Role.objects.filter(users = request.user)[0].name != "Owner":
+        redirect('profile')
+
     if request.method == 'POST':
         form = RideCreateForm(request.POST)
         if form.is_valid():
             ride = form.save()
             if ride.shared_allowed:
-                ride.status = "public"
+                s = RideStatus.objects.get_or_create(name = "public")
+                ride.status = s
             else:
-                ride.status = "private"
-            request.user.groups.add("Owner")
+                s = RideStatus.objects.get_or_create(name = "private")
+                ride.status = s
+            ride.owner = request.user.username
+            ride.save()
         else:
             return render(request, 'create_ride.html', {'form': form})
     else:

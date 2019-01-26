@@ -30,6 +30,13 @@ class RoleForm(forms.Form):
         fields = ("name")
 
 class RideCreateForm(forms.ModelForm):
+    destination = models.CharField(max_length = 100)
+    passenger_number = models.IntegerField(blank = False)
+    arrival_time = models.DateTimeField(default = timezone.now)
+    shared_allowed = models.BooleanField(default = True)
+    vehicle_type = models.CharField(max_length = 100)
+    special = models.TextField()
+    
     class Meta:
         model = Rides
         fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']

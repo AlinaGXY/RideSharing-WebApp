@@ -16,14 +16,14 @@ class RideStatus(models.Model):
 
 class Rides(models.Model):
     passengers = models.ManyToManyField(User)
-    owner = models.EmailField(max_length=254)
+    owner = models.CharField(max_length=100)
     destination = models.CharField(max_length = 100)
     passenger_number = models.IntegerField(blank = False)
     arrival_time = models.DateTimeField(default = timezone.now)
     shared_allowed = models.BooleanField(default = True)
     vehicle_type = models.CharField(max_length = 100)
     special = models.TextField()
-    status = models.ForeignKey(RideStatus, on_delete=models.CASCADE)
+    status = models.ForeignKey(RideStatus, on_delete=models.CASCADE, null = True)
     driver = models.CharField(max_length = 100)
 
     def __str__(self):
