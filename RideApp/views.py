@@ -127,23 +127,23 @@ def profile(request):
 #     #     context['user'] = request.user
 #     #     return context
 
-# @login_required
-# def RideCreate(request):
-#     if request.method == 'POST':
-#         form = RideCreateForm(request.POST)
-#         if form.is_valid():
-#             ride = form.save()
-#             if ride.shared_allowed:
-#                 ride.status = "public"
-#             else:
-#                 ride.status = "private"
-#             request.user.groups.add("Owner")
-#         else:
-#             return render(request, 'create_ride.html', {'form': form})
-#     else:
-#         form = RideCreateForm()
+@login_required
+def RideCreate(request):
+    if request.method == 'POST':
+        form = RideCreateForm(request.POST)
+        if form.is_valid():
+            ride = form.save()
+            if ride.shared_allowed:
+                ride.status = "public"
+            else:
+                ride.status = "private"
+            request.user.groups.add("Owner")
+        else:
+            return render(request, 'create_ride.html', {'form': form})
+    else:
+        form = RideCreateForm()
 
-#     return render(request, 'create_ride.html', {'form': form})
+    return render(request, 'create_ride.html', {'form': form})
 
 # @method_decorator(login_required, name='dispatch')
 # class RideUpdateView(UpdateView):
