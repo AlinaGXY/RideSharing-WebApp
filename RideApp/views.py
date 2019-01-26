@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth.models import Group
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
 
 from .models import *
 
@@ -54,7 +55,7 @@ def chooseRole(request):
                     name=oldRolename,
                 )
                 oldrole.users.remove(curusr)
-                
+
             role, created = Role.objects.get_or_create(
                 name = role_name,
             )
@@ -101,27 +102,17 @@ def profile(request):
     Rolename=Role.objects.filter(users=curusr)[0].name
     return render(request, 'profile.html',{'Rolename':Rolename})
 
-# @method_decorator(login_required, name='dispatch')
-# class RideListView(ListView):
-#     model = Rides
-#     template_name = 'rides_list.html'
-#     ordering = ['-arrival_time']
-#     context_object_name = "context"
+@method_decorator(login_required, name='dispatch')
+class RideListView(ListView):
+    model = Rides
+    template_name = 'rides_list.html'
+    ordering = ['-arrival_time']
+    context_object_name = "context"
 
-#     def get_queryset(self):
-#         user = self.request.user
-#         if user.group.filter(name = 'Driver').exists():
-#             rides = Rides.objects.filter(driver = user.username)
-#         else:
-#             rides = User.objects.filter(passenger = user)
-#         return rides
-
-#     # def get_context_data(self, **kwargs):
-#     #     # Call the base implementation first to get the context
-#     #     context = super(RideListView, self).get_context_data(**kwargs)
-#     #     # Create any data and add it to the context
-#     #     context['user'] = self.request.user
-#     #     return context
+    def get_queryset(self):
+        user = self.request.user
+        rides = Ride.objects.filter(passenger = user, driver = user.username)
+        return rides
 
 # @method_decorator(login_required, name='dispatch')
 # class RideDetailView(DetailView):
@@ -135,10 +126,12 @@ def profile(request):
 #     #     context['user'] = request.user
 #     #     return context
 
+# https://docs.djangoproject.com/zh-hans/2.1/ref/contrib/messages/#displaying-messages
 @login_required
 def RideCreate(request):
     if Role.objects.filter(users = request.user)[0].name != "Owner":
-        redirect('profile')
+        messages.add_message(request, messages.INFO, 'Oops! You can only request a new ride as an owner.')
+        return redirect('profile')
 
     if request.method == 'POST':
         form = RideCreateForm(request.POST)
@@ -152,6 +145,7 @@ def RideCreate(request):
                 ride.status = s
             ride.owner = request.user.username
             ride.save()
+            return redirect('profile')
         else:
             return render(request, 'create_ride.html', {'form': form})
     else:

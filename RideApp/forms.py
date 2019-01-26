@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from datetime import datetime
 
 from .models import *
 
@@ -36,7 +37,7 @@ class RideCreateForm(forms.ModelForm):
     shared_allowed = models.BooleanField(default = True)
     vehicle_type = models.CharField(max_length = 100)
     special = models.TextField()
-    
+
     class Meta:
         model = Rides
         fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
