@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {#        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">#}
 
@@ -33,6 +34,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+
 {% block content %}
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
@@ -44,20 +46,15 @@
             </button>
             <a class="navbar-brand" href="">Ride Sharing Service</a>
         </div>
-        <!-- /.navbar-header -->
-
-        <h2 class="page-header">Register</h2>
+        <h2 class="page-header">Choose Your Role</h2>
         <form method="POST">
             <div>{% csrf_token %}
-                {{ form.as_p }}
+               {{ form.as_p}}
             </div>
             <div>
-                <button type="submit">Sign up</button>
+                <button type="submit">Submit</button>
 
-            </div>
-            <div>
-                <p>Already have an account? <a href="/login">Sign in</a>.</p>
-            </div>
+             </div>
         </form>
     </nav>
 {% endblock %}

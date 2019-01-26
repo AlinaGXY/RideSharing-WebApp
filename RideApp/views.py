@@ -32,10 +32,10 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None and user.is_active:
                 login(request, user)
-                return redirect('profile')
+                return redirect('choose-role')
     else:
         form = LoginForm()
-    
+
     return render(request, 'login.html', {'form': form})
 
 def logout_view(request):
@@ -51,8 +51,34 @@ def chooseRole(request):
                 name = role_name,
             )
             role.users.add(request.user)
+
             return redirect('profile')  # TODO
-        
+
+        else:
+            return render(request, 'choose_role.html', {'form': form})
+
+    else:
+        form = RoleForm()
+    return render(request, 'choose_role.html', {'form': form})
+
+def editRole(request):
+    if request.method == 'POST':
+        form = RoleForm(request.POST)
+        if form.is_valid():
+            role_name = form.cleaned_data['name']
+            curusr = request.user
+            oldRolename=Role.objects.filter(users=curusr)[0].name
+            oldrole, created=Role.objects.get_or_create(
+                name = oldRolename,
+            )
+            oldrole.users.remove(curusr)
+            role, created = Role.objects.get_or_create(
+                name = role_name,
+            )
+            role.users.add(request.user)
+
+            return redirect('profile')  # TODO
+
         else:
             return render(request, 'choose_role.html', {'form': form})
 
@@ -63,7 +89,9 @@ def chooseRole(request):
 
 @login_required
 def profile(request):
-    return render(request, 'profile.html')
+    curusr = request.user
+    Rolename=Role.objects.filter(users=curusr)[0].name
+    return render(request, 'profile.html',{'Rolename':Rolename})
 
 # @method_decorator(login_required, name='dispatch')
 # class RideListView(ListView):
@@ -79,7 +107,7 @@ def profile(request):
 #         else:
 #             rides = User.objects.filter(passenger = user)
 #         return rides
-    
+
 #     # def get_context_data(self, **kwargs):
 #     #     # Call the base implementation first to get the context
 #     #     context = super(RideListView, self).get_context_data(**kwargs)

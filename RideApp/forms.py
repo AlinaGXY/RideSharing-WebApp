@@ -19,6 +19,12 @@ class LoginForm(forms.Form):
 
 
 class RoleForm(forms.Form):
+    Role_Choices = {
+        ('Owner', 'Owner'),
+        ('Sharer', 'Sharer'),
+        ('Driver', 'Driver'),
+    }
+    name=forms.ChoiceField(choices=Role_Choices)
     class Meta:
         model = Role
         fields = ("name")

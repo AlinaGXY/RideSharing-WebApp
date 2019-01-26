@@ -24,6 +24,7 @@ urlpatterns = [
     path('register/', views.register, name = 'register'),
     path('login/', views.login_view, name = 'login'),
     path('role/', views.chooseRole, name = 'choose-role'),
+    path('editrole/', views.editRole, name = 'edit-role'),
     path('logout/', views.logout_view, name = 'logout'),
     path('profile/', views.profile, name = 'profile'),
     # path('allRides/', views.RideListView.as_view(), name = 'user-rides'),
