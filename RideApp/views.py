@@ -138,7 +138,7 @@ def profile(request):
 @login_required
 def RideCreate(request):
     if Role.objects.filter(users = request.user)[0].name != "Owner":
-        redirect('profile')
+        return redirect('profile')
 
     if request.method == 'POST':
         form = RideCreateForm(request.POST)
@@ -152,6 +152,7 @@ def RideCreate(request):
                 ride.status = s
             ride.owner = request.user.username
             ride.save()
+            return redirect('profile')
         else:
             return render(request, 'create_ride.html', {'form': form})
     else:

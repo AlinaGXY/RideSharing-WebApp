@@ -33,7 +33,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-{% block content %}
+<body>
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -45,31 +45,49 @@
             <a class="navbar-brand" href="">Ride Sharing Service</a>
         </div>
         <!-- /.navbar-header -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
 
-        <h2 class="page-header">Register</h2>
-        <form method="POST">
-            <div>{% csrf_token %}
-                {{ form.as_p }}
-            </div>
-            <div>
-                <button type="submit">Sign up</button>
+                        {% block content %}
 
+                            <h2 class="page-header">Register</h2>
+                            <form method="POST">
+                                <div>{% csrf_token %}
+                                    {{ form.as_p }}
+                                </div>
+                                <div>
+                                    <button type="submit">Sign up</button>
+
+                                </div>
+                                <div>
+                                    <p>Already have an account? <a href="/login">Sign in</a>.</p>
+                                </div>
+                            </form>
+                        {% endblock %}
+
+
+
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
             </div>
-            <div>
-                <p>Already have an account? <a href="/login">Sign in</a>.</p>
-            </div>
-        </form>
+            <!-- /.container-fluid -->
+        </div>
+
     </nav>
-{% endblock %}
-    <!-- jQuery -->
-    <script src="../static/vendor/jquery/jquery.min.js"></script>
+</body>
+<!-- jQuery -->
+<script src="../static/vendor/jquery/jquery.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../static/vendor/metisMenu/metisMenu.min.js"></script>
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../static/vendor/metisMenu/metisMenu.min.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="../static/dist/js/sb-admin-2.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="../static/dist/js/sb-admin-2.js"></script>
 </html>
