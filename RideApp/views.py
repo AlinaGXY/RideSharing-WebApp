@@ -40,13 +40,20 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('login_view')
+    return redirect('login')
 
 def chooseRole(request):
     if request.method == 'POST':
         form = RoleForm(request.POST)
         if form.is_valid():
             role_name = form.cleaned_data['name']
+            curusr = request.user
+            if(Role.objects.filter(users=curusr).count()):
+                oldRolename = Role.objects.filter(users=curusr)[0].name
+                oldrole, created = Role.objects.get_or_create(
+                    name=oldRolename,
+                )
+                oldrole.users.remove(curusr)
             role, created = Role.objects.get_or_create(
                 name = role_name,
             )
