@@ -31,7 +31,7 @@ urlpatterns = [
     path('allRides/', login_required(views.RideListView.as_view()), name = 'user-rides'),
     path('allRides/<int:ride_id>/', login_required(views.RideDetailView.as_view()), name = 'ride-detail'),
     path('ridescreate/', views.RideCreate, name = 'create-new-ride')
-    # path('rides/<int:pk>/edit', views.RideUpdateView.as_view(), name = 'ride-edit'),
+    # path('rides/<int:ride_id>/edit', login_required(views.RideUpdateView.as_view()), name = 'ride-edit'),
     # path('rides/search'),
     # path('rides/<int:ride_id>/join/', views.RideJoin, name = 'join-ride'),
     # path('rides/<int:pk>/confirm/')

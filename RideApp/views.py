@@ -114,7 +114,6 @@ class RideListView(ListView):
     def get_queryset(self):
         user = self.request.user
         rides = Rides.objects.filter(Q(passengers = user) | Q(driver = user.username))
-        # print(rides.len())
         return rides
 
 class RideDetailView(DetailView):
@@ -156,7 +155,7 @@ def RideCreate(request):
 
     return render(request, 'create_ride.html', {'form': form})
 
-# @method_decorator(login_required, name='dispatch')
+
 # class RideUpdateView(UpdateView):
 #     model = Ride
 #     fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
