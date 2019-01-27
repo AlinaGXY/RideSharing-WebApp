@@ -23,7 +23,7 @@ class Rides(models.Model):
     shared_allowed = models.BooleanField(default = True)
     vehicle_type = models.CharField(max_length = 100)
     special = models.TextField()
-    status = models.ForeignKey(RideStatus, on_delete=models.CASCADE, null = True)
+    status = models.ForeignKey(RideStatus, on_delete=models.CASCADE)
     driver = models.CharField(max_length = 100)
 
     def __str__(self):

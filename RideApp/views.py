@@ -6,6 +6,7 @@ from django.contrib.auth.models import Group
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from django.db.models import Q
 
 from .models import *
 
@@ -113,7 +114,7 @@ class RideListView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        rides = Ride.objects.filter(passenger = user, driver = user.username)
+        rides = Rides.objects.filter(Q(passengers = user) | Q(driver = user.username))
         return rides
 
 class RideDetailView(DetailView):
@@ -162,11 +163,11 @@ def RideCreate(request):
 #     context_object_name = 'ride'
 
 
-# @login_required
-# def RideSearch(request, user_id):
-#     user = request.user
-#     if user.groups.filter(name = 'Driver').exists():
-#         result = Rides.objects.filter(status=)
+@login_required
+def RideSearch(request, user_id):
+    user = request.user
+    if Role.objects.filter(users = user).exists():
+        result = Rides.objects.filter(Q(status__name = "public") | Q(status__name = "private"))
 
 
 # @login_required
