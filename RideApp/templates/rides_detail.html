@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Ride Detail{% endblock %}
+{% block content %}
+
+    <h2 class="page-header">Ride Detail</h2>
+    <table>
+        {% for ride in rides %}
+            {% for field, value in ride.get_fields %}
+                <tr>
+                    <th>{{ field }}</th>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </table>
+{% endblock %}
