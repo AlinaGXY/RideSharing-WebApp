@@ -156,6 +156,10 @@ def RideCreate(request):
     return render(request, 'create_ride.html', {'form': form})
 
 
+def addVehicle(request):
+    
+
+
 # class RideUpdateView(UpdateView):
 #     model = Ride
 #     fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
@@ -163,11 +167,11 @@ def RideCreate(request):
 #     context_object_name = 'ride'
 
 
-@login_required
-def RideSearch(request, user_id):
-    user = request.user
-    if Role.objects.filter(users = user).exists():
-        result = Rides.objects.filter(Q(status__name = "public") | Q(status__name = "private"))
+# @login_required
+# def RideSearch(request, user_id):
+#     user = request.user
+#     if Role.objects.filter(users = user)[0].name == "Sharer":
+#         result = Rides.objects.filter(Q(status__name = "public") |)
 
 
 # @login_required

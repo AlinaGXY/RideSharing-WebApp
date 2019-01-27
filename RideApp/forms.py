@@ -35,8 +35,8 @@ class RideCreateForm(forms.ModelForm):
     passenger_number = models.IntegerField(blank = False)
     arrival_time = models.DateTimeField(default = timezone.now)
     shared_allowed = models.BooleanField(default = True)
-    vehicle_type = models.CharField(max_length = 100)
-    special = models.TextField(blank = True)
+    vehicle_type = models.CharField(max_length = 100, blank = True, null = True)
+    special = models.TextField(blank = True, null = True)
 
     class Meta:
         model = Rides
@@ -52,3 +52,28 @@ class RideCreateForm(forms.ModelForm):
         # Remember to always return the cleaned data.
         return data
 
+    def clean_passenger_number(self):
+        data = self.cleaned_data['passenger_number']
+
+        if data < 1:
+            raise ValidationError('Invalid passenger number')
+
+        return data
+
+
+class VehicleCreateForm(forms.ModelForm):
+    type = models.CharField(max_length=150)
+    capacity = models.IntegerField(blank=False)
+    special = models.TextField(blank = True, null = True)
+
+    class Meta:
+        model = Vehicle
+        fields = ['type', 'capacity', 'special']
+
+    def clean_capacity(self):
+        data = self.cleaned_data['capacity']
+
+        if data < 2:
+            raise ValidationError('Invalid passenger number')
+
+        return data
