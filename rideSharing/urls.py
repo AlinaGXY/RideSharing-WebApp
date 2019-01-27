@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
 from RideApp import views as views
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('', views.register),
@@ -27,9 +28,9 @@ urlpatterns = [
     path('editrole/', views.editRole, name = 'edit-role'),
     path('logout/', views.logout_view, name = 'logout'),
     path('profile/', views.profile, name = 'profile'),
-    # path('allRides/', views.RideListView.as_view(), name = 'user-rides'),
-    # path('allRides/<int:pk>/', views.RideDetailView.as_view(), name = 'ride-detail'),
-     path('ridescreate/', views.RideCreate, name = 'create-new-ride')
+    path('allRides/', login_required(views.RideListView.as_view()), name = 'user-rides'),
+    path('allRides/<int:ride_id>/', login_required(views.RideDetailView.as_view()), name = 'ride-detail'),
+    path('ridescreate/', views.RideCreate, name = 'create-new-ride')
     # path('rides/<int:pk>/edit', views.RideUpdateView.as_view(), name = 'ride-edit'),
     # path('rides/<int:user_id>/search'),
     # path('rides/<int:ride_id>/join/', views.RideJoin, name = 'join-ride'),

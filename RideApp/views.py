@@ -39,10 +39,12 @@ def login_view(request):
 
     return render(request, 'login.html', {'form': form})
 
+@login_required
 def logout_view(request):
     logout(request)
     return redirect('login')
 
+@login_required
 def chooseRole(request):
     if request.method == 'POST':
         form = RoleForm(request.POST)
@@ -70,6 +72,7 @@ def chooseRole(request):
         form = RoleForm()
     return render(request, 'choose_role.html', {'form': form})
 
+@login_required
 def editRole(request):
     if request.method == 'POST':
         form = RoleForm(request.POST)
@@ -102,29 +105,27 @@ def profile(request):
     Rolename=Role.objects.filter(users=curusr)[0].name
     return render(request, 'profile.html',{'Rolename':Rolename})
 
-@method_decorator(login_required, name='dispatch')
 class RideListView(ListView):
     model = Rides
     template_name = 'rides_list.html'
     ordering = ['-arrival_time']
-    context_object_name = "context"
+    context_object_name = "rides"
 
     def get_queryset(self):
         user = self.request.user
         rides = Ride.objects.filter(passenger = user, driver = user.username)
         return rides
 
-# @method_decorator(login_required, name='dispatch')
-# class RideDetailView(DetailView):
-#     model = Rides
-#     template_name = 'rides_detail.html'
-#     context_object_name = "ride"
+class RideDetailView(DetailView):
+    model = Rides
+    template_name = 'rides_detail.html'
+    context_object_name = "context"
 
-#     # def get_context_data(self, **kwargs):
-#     #     # Call the base implementation first to get the context
-#     #     context = super(RideDetailView, self).get_context_data(**kwargs)
-#     #     context['user'] = request.user
-#     #     return context
+    # def get_context_data(self, **kwargs):
+    #     # Call the base implementation first to get the context
+    #     context = super(RideDetailView, self).get_context_data(**kwargs)
+    #     context['ride'] = self.request['ride_id']
+    #     return context
 
 # https://docs.djangoproject.com/zh-hans/2.1/ref/contrib/messages/#displaying-messages
 @login_required
@@ -138,10 +139,10 @@ def RideCreate(request):
         if form.is_valid():
             ride = form.save()
             if ride.shared_allowed:
-                s = RideStatus.objects.get_or_create(name = "public")
+                s, created = RideStatus.objects.get_or_create(name = "public")
                 ride.status = s
             else:
-                s = RideStatus.objects.get_or_create(name = "private")
+                s, created = RideStatus.objects.get_or_create(name = "private")
                 ride.status = s
             ride.owner = request.user.username
             ride.save()

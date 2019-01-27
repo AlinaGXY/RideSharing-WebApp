@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from datetime import datetime
+from django.utils import timezone
 
 from .models import *
 from django.core.exceptions import ValidationError
@@ -46,7 +46,7 @@ class RideCreateForm(forms.ModelForm):
         data = self.cleaned_data['arrival_time']
         
         # Check if a date is not in the past. 
-        if data < datetime.now():
+        if data < timezone.now():
             raise ValidationError('Invalid date time')
 
         # Remember to always return the cleaned data.
