@@ -40,7 +40,12 @@
                                     {% else %}
                                         <td>Sharer</td>
                                     {% endif %}
-                                    <td>{{ ride.status }}</td>
+                                {% if ride.status == "public" %}
+                                    <a href="/allRides/<int:ride_id>/"><td>Open</td></a>
+                                   {% else %}
+                                    <a href="/allRides/<int:ride_id>/"><td>Not Open</td></a>
+                                {% endif %}
+
                                 </tr>
                             {% endfor %}
 
