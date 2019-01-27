@@ -114,6 +114,7 @@ class RideListView(ListView):
     def get_queryset(self):
         user = self.request.user
         rides = Rides.objects.filter(Q(passengers = user) | Q(driver = user.username))
+        # print(rides.len())
         return rides
 
 class RideDetailView(DetailView):
@@ -145,6 +146,7 @@ def RideCreate(request):
                 s, created = RideStatus.objects.get_or_create(name = "private")
                 ride.status = s
             ride.owner = request.user.username
+            ride.passengers.add(request.user)
             ride.save()
             return redirect('profile')
         else:
