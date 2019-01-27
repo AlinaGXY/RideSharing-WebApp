@@ -20,9 +20,11 @@
     <!-- Custom CSS -->
     <link href="../static/dist/css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <!--link href="../vendor/morrisjs/morris.css" rel="stylesheet"-->
+    <!-- DataTables CSS -->
+    <link href="../static/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
 
+    <!-- DataTables Responsive CSS -->
+    <link href="../static/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -90,7 +92,7 @@
                         </li>
                     {% else %}
                         <li>
-                            <a href=""><i class="fa fa-user fa-fw"></i> My Rides</a>
+                            <a href="/allRides"><i class="fa fa-user fa-fw"></i> My Rides</a>
                         </li>
                         <li>
                             <a href=""><i class="fa fa-search fa-fw"></i> Search Rides</a>
@@ -159,6 +161,11 @@
 
 <!-- Metis Menu Plugin JavaScript -->
 <script src="../static/vendor/metisMenu/metisMenu.min.js"></script>
+
+<!-- DataTables JavaScript -->
+<script src="../static/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="../static/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+<script src="../static/vendor/datatables-responsive/dataTables.responsive.js"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="../static/dist/js/sb-admin-2.js"></script>

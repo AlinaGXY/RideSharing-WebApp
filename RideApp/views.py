@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-
+from django.db.models import Q
 from .models import *
 
 from .forms import *
@@ -113,7 +113,7 @@ class RideListView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        rides = Ride.objects.filter(passenger = user, driver = user.username)
+        rides = Rides.objects.filter(Q(passengers = user), Q(driver = user.username))
         return rides
 
 class RideDetailView(DetailView):
