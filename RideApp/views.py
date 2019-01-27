@@ -7,7 +7,6 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.db.models import Q
-
 from .models import *
 
 from .forms import *
