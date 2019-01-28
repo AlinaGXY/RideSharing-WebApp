@@ -119,7 +119,7 @@ class RideListView(ListView):
 class RideDetailView(DetailView):
     model = Rides
     template_name = 'rides_detail.html'
-    context_object_name = "context"
+    context_object_name = "ride"
 
     # def get_context_data(self, **kwargs):
     #     # Call the base implementation first to get the context
