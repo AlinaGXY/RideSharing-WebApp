@@ -4,7 +4,7 @@
 
     <h2 class="page-header">My Ride List</h2>
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     All Rides
@@ -20,12 +20,13 @@
                                 <th>Time</th>
                                 <th>Passenger Number</th>
                                 <th>Role</th>
-                                <th>Status</th>
+                                <th>Share Status</th>
+                                <th>View Details/Edit Requests</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for ride in rides %}
-                           
+
                                 <tr>
 
                                     <td> {{ ride.destination }}</td>
@@ -40,12 +41,22 @@
                                     {% else %}
                                         <td>Sharer</td>
                                     {% endif %}
-                                {% if ride.status.name == "public" %}
-                                    <td><a href="{% url 'ride-detail' ride.id %}">Open</a></td>
-                                   {% else %}
-                                    <td><a href="{% url 'ride-detail' ride.id %}">Not Open</a></td>
-                                {% endif %}
-
+                                    {% if ride.status.name == "public" %}
+                                        <td>Open</td>
+                                    {% else %}
+                                        <td>Not Open</td>
+                                    {% endif %}
+                                    {% if ride.owner == user.username %}
+                                        {% if ride.status.name == "public" %}
+                                            <td><a href="{% url 'ride-detail' ride.id %}">Edit</a></td>
+                                        {% elif ride.status.name == "private" %}
+                                            <td><a href="{% url 'ride-detail' ride.id %}">Edit</a></td>
+                                        {% else %}
+                                            <td><a href="{% url 'ride-detail' ride.id %}">View Details</a></td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td><a href="{% url 'ride-detail' ride.id %}">View Details</a></td>
+                                    {% endif %}
                                 </tr>
                             {% endfor %}
 

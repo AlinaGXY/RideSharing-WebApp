@@ -64,12 +64,12 @@ class RideCreateForm(forms.ModelForm):
 class VehicleCreateForm(forms.ModelForm):
     type = forms.CharField(max_length=150, required=True)
     capacity = forms.IntegerField(required=True)
-    plate_number = forms.IntegerField(required=True)
+    plate_number = forms.CharField(max_length=150,required=True)
     special = forms.CharField(required=False, widget=forms.Textarea)
 
     class Meta:
         model = Vehicle
-        fields = ['type', 'capacity', 'special']
+        fields = ['type', 'capacity','plate_number','special']
 
     def clean_capacity(self):
         data = self.cleaned_data['capacity']

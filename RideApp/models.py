@@ -23,7 +23,7 @@ class Rides(models.Model):
     shared_allowed = models.BooleanField(default = True)
     vehicle_type = models.CharField(max_length = 100)
     special = models.TextField(blank=True)
-    status = models.ForeignKey(RideStatus, on_delete=models.CASCADE)
+    status = models.ForeignKey(RideStatus, on_delete=models.CASCADE,null=True,blank=True)
     driver = models.CharField(max_length = 100)
 
     def __str__(self):
@@ -52,11 +52,11 @@ class Vehicle(models.Model):
     )
     type = models.CharField(max_length=150)
     capacity = models.IntegerField(blank=False)
-    plate_number = models.IntegerField(blank=False)
+    plate_number = models.CharField(max_length=150,blank=False)
     special = models.TextField(blank=True)
 
     def __str__(self):
-        return self.driver
+        return (self.plate_number)
 
     class Meta:
         ordering = ('driver',)

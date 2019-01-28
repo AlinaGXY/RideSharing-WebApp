@@ -10,19 +10,28 @@
         <li class="list-group-item">
             Passengers:
             {% for person in ride.passengers.all %}
-            {{ person.username }}
-                {% endfor %}
+                {{ person.username }}
+            {% endfor %}
         </li>
         <li class="list-group-item">Owner: {{ ride.owner }}</li>
         <li class="list-group-item">Driver: {{ ride.driver }}</li>
         <li class="list-group-item">Vehicle Type: {{ ride.vehicle_type }}</li>
 
         {% if ride.status.name == "public" %}
-            <li class="list-group-item">Status: Open for share</li>
+            <li class="list-group-item">Share Status: Open for share</li>
         {% else %}
-            <li class="list-group-item">Status: Not open for share</li>
+            <li class="list-group-item">Share Status: Not open for share</li>
         {% endif %}
         <li class="list-group-item">Special: {{ ride.special }}</li>
+        {% if ride.owner == user.username %}
+            {% if ride.status.name == "public" %}
+                <button type="button"><a href="{% url 'ride-edit' ride.id %}">Edit</a></button>
+            {% elif ride.status.name == "private" %}
+                <button type="button"><a href="{% url 'ride-edit' ride.id %}">Edit</a></button>
+            {% endif %}
+
+        {% endif %}
+
     </ul>
 
 

@@ -170,12 +170,12 @@ def addVehicle(request):
             car.save()
             return redirect('profile')
         else:
-            return render(request, 'create_car.html', {'form': form})
+            return render(request, 'create_vehicle.html', {'form': form})
     else:
         messages.add_message(request, messages.INFO, "Invalid input!")
         form = VehicleCreateForm()
 
-    return render(request, 'create_car.html', {'form': form})
+    return render(request, 'create_vehicle.html', {'form': form})
 
 
 class RideUpdateView(UpdateView):

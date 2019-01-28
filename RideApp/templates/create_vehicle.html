@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Register My Vehicle{% endblock %}
+{% block content %}
+
+    <h2 class="page-header">Register My Vehicle</h2>
+
+
+    <form method="POST">
+        <div>{% csrf_token %}
+            {{ form.as_p}}
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+
+        </div>
+    </form>
+{% endblock %}
