@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib.auth.models import Group
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.db.models import Q
@@ -165,6 +165,7 @@ def addVehicle(request):
         form = VehicleCreateForm(request.POST)
         if form.is_valid():
             car = form.save()
+            car.driver = request.user
             car.save()
             return redirect('profile')
         else:
@@ -175,11 +176,11 @@ def addVehicle(request):
     return render(request, 'create_ride.html', {'form': form})
 
 
-# class RideUpdateView(UpdateView):
-#     model = Ride
-#     fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
-#     template_name = 'ride_edit.html'
-#     context_object_name = 'ride'
+class RideUpdateView(UpdateView):
+    model = Rides
+    fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
+    template_name = 'ride_edit.html'
+    context_object_name = 'ride'
 
 
 # @login_required

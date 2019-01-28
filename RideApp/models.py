@@ -22,7 +22,7 @@ class Rides(models.Model):
     arrival_time = models.DateTimeField(default = timezone.now)
     shared_allowed = models.BooleanField(default = True)
     vehicle_type = models.CharField(max_length = 100)
-    special = models.TextField()
+    special = models.TextField(blank=True)
     status = models.ForeignKey(RideStatus, on_delete=models.CASCADE)
     driver = models.CharField(max_length = 100)
 
