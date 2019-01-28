@@ -61,19 +61,20 @@ class RideCreateForm(forms.ModelForm):
         return data
 
 
-# class VehicleCreateForm(forms.ModelForm):
-#     type = models.CharField(max_length=150, blank = True, null = True)
-#     capacity = models.IntegerField(blank=False)
-#     special = models.TextField(blank = True, null = True)
+class VehicleCreateForm(forms.ModelForm):
+    type = forms.CharField(max_length=150, required=True)
+    capacity = forms.IntegerField(required=True)
+    plate_number = forms.IntegerField(required=True)
+    special = forms.CharField(required=False, widget=forms.Textarea)
 
-#     class Meta:
-#         model = Vehicle
-#         fields = ['type', 'capacity', 'special']
+    class Meta:
+        model = Vehicle
+        fields = ['type', 'capacity', 'special']
 
-#     def clean_capacity(self):
-#         data = self.cleaned_data['capacity']
+    def clean_capacity(self):
+        data = self.cleaned_data['capacity']
 
-#         if data < 2:
-#             raise ValidationError('Invalid passenger number')
+        if data < 2:
+            raise ValidationError('Invalid passenger number')
 
-#         return data
+        return data

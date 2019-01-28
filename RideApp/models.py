@@ -52,7 +52,8 @@ class Vehicle(models.Model):
     )
     type = models.CharField(max_length=150)
     capacity = models.IntegerField(blank=False)
-    special = models.TextField()
+    plate_number = models.IntegerField(blank=False)
+    special = models.TextField(blank=True)
 
     def __str__(self):
         return self.driver

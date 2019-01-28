@@ -119,7 +119,7 @@ class RideListView(ListView):
 class RideDetailView(DetailView):
     model = Rides
     template_name = 'rides_detail.html'
-    context_object_name = "context"
+    context_object_name = "ride"
 
     # def get_context_data(self, **kwargs):
     #     # Call the base implementation first to get the context
@@ -149,6 +149,7 @@ def RideCreate(request):
             ride.save()
             return redirect('profile')
         else:
+            messages.add_message(request, messages.INFO, "Invalid input!")
             return render(request, 'create_ride.html', {'form': form})
     else:
         form = RideCreateForm()
@@ -171,9 +172,10 @@ def addVehicle(request):
         else:
             return render(request, 'create_car.html', {'form': form})
     else:
+        messages.add_message(request, messages.INFO, "Invalid input!")
         form = VehicleCreateForm()
 
-    return render(request, 'create_ride.html', {'form': form})
+    return render(request, 'create_car.html', {'form': form})
 
 
 class RideUpdateView(UpdateView):
