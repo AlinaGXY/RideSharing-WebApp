@@ -157,7 +157,22 @@ def RideCreate(request):
 
 
 def addVehicle(request):
-    
+    if Role.objects.filter(users = request.user)[0].name != "Driver":
+        messages.add_message(request, messages.INFO, 'Oops! You can only add a vehicle as an driver.')
+        return redirect('profile')
+
+    if request.method == 'POST':
+        form = VehicleCreateForm(request.POST)
+        if form.is_valid():
+            car = form.save()
+            car.save()
+            return redirect('profile')
+        else:
+            return render(request, 'create_car.html', {'form': form})
+    else:
+        form = VehicleCreateForm()
+
+    return render(request, 'create_ride.html', {'form': form})
 
 
 # class RideUpdateView(UpdateView):

@@ -29,9 +29,9 @@ urlpatterns = [
     path('logout/', views.logout_view, name = 'logout'),
     path('profile/', views.profile, name = 'profile'),
     path('allRides/', login_required(views.RideListView.as_view()), name = 'user-rides'),
-    path('allRides/<int:ride_id>/', login_required(views.RideDetailView.as_view()), name = 'ride-detail'),
+    path('allRides/<pk>/', login_required(views.RideDetailView.as_view()), name = 'ride-detail'),
     path('ridescreate/', views.RideCreate, name = 'create-new-ride')
-    path('rides/<int:ride_id>/edit', login_required(views.RideUpdateView.as_view()), name = 'ride-edit'),
+    # path('rides/<pk>/edit', login_required(views.RideUpdateView.as_view()), name = 'ride-edit'),
     # path('addVehicle/')
     # path('rides/search'),
     # path('rides/<int:ride_id>/join/', views.RideJoin, name = 'join-ride'),

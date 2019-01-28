@@ -31,12 +31,12 @@ class RoleForm(forms.Form):
         fields = ("name")
 
 class RideCreateForm(forms.ModelForm):
-    destination = models.CharField(max_length = 100)
-    passenger_number = models.IntegerField(blank = False)
-    arrival_time = models.DateTimeField(default = timezone.now)
-    shared_allowed = models.BooleanField(default = True)
-    vehicle_type = models.CharField(max_length = 100, blank = True, null = True)
-    special = models.TextField(blank = True, null = True)
+    destination = forms.CharField(max_length = 100)
+    passenger_number = forms.IntegerField()
+    arrival_time = forms.DateTimeField(initial=timezone.now)
+    shared_allowed = forms.BooleanField(required=False)
+    vehicle_type = forms.CharField(max_length = 100, required=False)
+    special = forms.CharField(required=False, widget=forms.Textarea)
 
     class Meta:
         model = Rides
@@ -61,19 +61,19 @@ class RideCreateForm(forms.ModelForm):
         return data
 
 
-class VehicleCreateForm(forms.ModelForm):
-    type = models.CharField(max_length=150)
-    capacity = models.IntegerField(blank=False)
-    special = models.TextField(blank = True, null = True)
+# class VehicleCreateForm(forms.ModelForm):
+#     type = models.CharField(max_length=150, blank = True, null = True)
+#     capacity = models.IntegerField(blank=False)
+#     special = models.TextField(blank = True, null = True)
 
-    class Meta:
-        model = Vehicle
-        fields = ['type', 'capacity', 'special']
+#     class Meta:
+#         model = Vehicle
+#         fields = ['type', 'capacity', 'special']
 
-    def clean_capacity(self):
-        data = self.cleaned_data['capacity']
+#     def clean_capacity(self):
+#         data = self.cleaned_data['capacity']
 
-        if data < 2:
-            raise ValidationError('Invalid passenger number')
+#         if data < 2:
+#             raise ValidationError('Invalid passenger number')
 
-        return data
+#         return data
