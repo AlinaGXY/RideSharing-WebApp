@@ -3,14 +3,37 @@
 {% block content %}
 
     <h2 class="page-header">Ride Detail</h2>
-    <table>
-        {% for ride in rides %}
-            {% for field, value in ride.get_fields %}
-                <tr>
-                    <th>{{ field }}</th>
-                    <td>{{ value }}</td>
-                </tr>
-            {% endfor %}
-        {% endfor %}
-    </table>
+    <ul class="list-group">
+        <li class="list-group-item">Destinations: {{ ride.destination }}</li>
+        <li class="list-group-item">Arrival time: {{ ride.arrival_time }}</li>
+        <li class="list-group-item">Passenger Number: {{ ride.passenger_number }}</li>
+        <li class="list-group-item">
+            Passengers:
+            {% for person in ride.passengers.all %}
+            {{ person.username }}
+                {% endfor %}
+        </li>
+        <li class="list-group-item">Owner: {{ ride.owner }}</li>
+        <li class="list-group-item">Driver: {{ ride.driver }}</li>
+        <li class="list-group-item">Vehicle Type: {{ ride.vehicle_type }}</li>
+
+        {% if ride.status.name == "public" %}
+            <li class="list-group-item">Status: Open for share</li>
+        {% else %}
+            <li class="list-group-item">Status: Not open for share</li>
+        {% endif %}
+        <li class="list-group-item">Special: {{ ride.special }}</li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}
