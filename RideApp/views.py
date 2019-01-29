@@ -46,6 +46,7 @@ def logout_view(request):
 
 @login_required
 def chooseRole(request):
+    Rolename = Role.objects.filter(users=request.user)[0].name
     if request.method == 'POST':
         form = RoleForm(request.POST)
 
@@ -68,15 +69,16 @@ def chooseRole(request):
             return redirect('profile')  
 
         else:
-            return render(request, 'choose_role.html', {'form': form})
+            return render(request, 'choose_role.html', {'form': form, 'Rolename':Rolename})
 
     else:
         form = RoleForm()
-    return render(request, 'choose_role.html', {'form': form})
+    return render(request, 'choose_role.html', {'form': form, 'Rolename':Rolename})
 
 
 @login_required
 def editRole(request):
+    Rolename = Role.objects.filter(users=request.user)[0].name
     if request.method == 'POST':
         form = RoleForm(request.POST)
         if form.is_valid():
@@ -95,18 +97,18 @@ def editRole(request):
             return redirect('profile')  # TODO
 
         else:
-            return render(request, 'choose_role.html', {'form': form})
+            return render(request, 'choose_role.html', {'form': form, "Rolename":Rolename})
 
     else:
         form = RoleForm()
-    return render(request, 'choose_role.html', {'form': form})
+    return render(request, 'choose_role.html', {'form': form, "Rolename":Rolename})
 
 
 @login_required
 def profile(request):
     curusr = request.user
-
     Rolename=Role.objects.filter(users=curusr)[0].name
+
     if Vehicle.objects.filter(driver=curusr).count() !=0:
         currvehicle=Vehicle.objects.filter(driver=curusr)[0]
     else:
@@ -128,16 +130,33 @@ class RideListView(ListView):
             rides = Rides.objects.filter(Q(passengers = user))
         return rides
 
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['Rolename'] = Role.objects.filter(users=self.request.user)[0].name
+        return context
+
+
+
 class RideDetailView(DetailView):
     model = Rides
     template_name = 'rides_detail.html'
     context_object_name = "ride"
 
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['Rolename'] = Role.objects.filter(users=self.request.user)[0].name
+        return context
+
 
 # https://docs.djangoproject.com/zh-hans/2.1/ref/contrib/messages/#displaying-messages
 @login_required
 def RideCreate(request):
-    if Role.objects.filter(users = request.user)[0].name != "Owner":
+    Rolename=Role.objects.filter(users=request.user)[0].name
+    if Rolename != "Owner":
         messages.add_message(request, messages.INFO, 'Oops! You can only request a new ride as an owner.')
         return redirect('profile')
 
@@ -157,15 +176,16 @@ def RideCreate(request):
             return redirect('profile')
         else:
             messages.add_message(request, messages.INFO, "Invalid input!")
-            return render(request, 'create_ride.html', {'form': form})
+            return render(request, 'create_ride.html', {'form': form, "Rolename":Rolename})
     else:
         form = RideCreateForm()
 
-    return render(request, 'create_ride.html', {'form': form})
+    return render(request, 'create_ride.html', {'form': form, "Rolename":Rolename})
 
 
 def addVehicle(request):
-    if Role.objects.filter(users = request.user)[0].name != "Driver":
+    Rolename=Role.objects.filter(users=request.user)[0].name
+    if Rolename != "Driver":
         messages.add_message(request, messages.INFO, 'Oops! You can only add a vehicle as an driver.')
         return redirect('profile')
 
@@ -181,12 +201,12 @@ def addVehicle(request):
             car.save()
             return redirect('profile')
         else:
-            return render(request, 'create_vehicle.html', {'form': form})
+            return render(request, 'create_vehicle.html', {'form': form, "Rolename":Rolename})
     else:
         messages.add_message(request, messages.INFO, "Invalid input!")
         form = VehicleCreateForm()
 
-    return render(request, 'create_vehicle.html', {'form': form})
+    return render(request, 'create_vehicle.html', {'form': form, "Rolename": Rolename})
 
 
 class RideUpdateView(UpdateView):
@@ -208,13 +228,11 @@ class RideUpdateView(UpdateView):
         return redirect("user-rides")
 
 
-# def SharerRequestCreate(request):
-
-
 @login_required
 def DriverSearch(request):
     user = request.user
-    if Role.objects.filter(users = user)[0].name != "Driver":
+    Rolename = Role.objects.filter(users=user)[0].name
+    if Rolename != "Driver":
         return redirect('profile')
 
     vehicle = Vehicle.objects.filter(driver=user)[0]
@@ -225,24 +243,66 @@ def DriverSearch(request):
         vehicle_type__in=['', vehicle.type],
         special__in=['', vehicle.special]
     )
-    return render(request, 'driver_search.html', {'rides':result})
+    return render(request, 'driver_search.html', {'rides':result, "Rolename":Rolename})
 
 
 def RideConfirm(request, ride_id):
     user = request.user
     ride = Rides.objects.get(pk=ride_id)
-    s, created = RideStatus.objects.get_or_create(name = "confirmed")
-    ride.status = s
-    ride.driver = user
-    ride.save()
-    return redirect('user-rides')
+    if ride.status.name != "confirmed" and ride.status.name != "completed":
+        s, created = RideStatus.objects.get_or_create(name = "confirmed")
+        ride.status = s
+        ride.driver = user
+        ride.save()
+        return redirect('user-rides')
+    else:
+        messages.add_message(request, messages.INFO, "This ride has been confirmed by others!")
+        return redirect('driver-search')
+
+
+def SharerRequestCreate(request):
+    Rolename = Role.objects.filter(users=request.user)[0].name
+    user = request.user
+
+    if Rolename != "Sharer":
+        messages.add_message(request, messages.INFO, 'Oops! You can only add a vehicle as an sharer.')
+        return redirect('profile')
+
+    if request.method == 'POST':
+        form = SharerRequestCreateForm(request.POST)
+        if form.is_valid():
+            condition = form.save()
+            condition.sharer = user
+            currReq = SharerRequest.objects.filter(sharer=user)
+            if currReq.count() == 0:
+                condition.save()
+            else:
+                currReq = condition
+                currReq.save()
+            return redirect('profile') # TODO
+        else:
+            return render(request, 'sharer_condition.html', {'form': form,"Rolename":Rolename})
+    else:
+        form = SharerRequestCreateForm()
+
+    return render(request, 'sharer_condition.html', {'form': form, "Rolename":Rolename})
+
+
+class SharerRequestUpdateView(UpdateView):
+    model = Rides
+    template_name = 'sharer_condition.html'
+    context_object_name = 'condition'
+    form_class = SharerRequestCreateForm
 
 
 def RideJoin(request, ride_id):
     user = request.user
     ride = Rides.objects.get(pk = ride_id)
-    s, created = RideStatus.objects.get_or_create(name = "shared")
-    ride.status = s
-    ride.passengers.add(user)
-    ride.save()
-    return redirect('user-rides')
+    if ride.status.name == "public":
+        s, created = RideStatus.objects.get_or_create(name = "shared")
+        ride.status = s
+        ride.passengers.add(user)
+        ride.save()
+        return redirect('user-rides')
+    else:
+        return redirect('sharer-search')
