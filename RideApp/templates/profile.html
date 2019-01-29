@@ -1,9 +1,44 @@
 {% extends "base.html" %}
 {% block title %}Profile{% endblock %}
 {% block content %}
-    <h2 class="page-header">My Profile</h2>
-    <h1>{{ user.username }}</h1>
-    <h1> {{ Rolename }}</h1>
+
+    <div class="col-lg-12">
+        <h1 class="page-header">My Profile</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+
+    <div class="panel-body">
+        <form role="form">
+            <h3> You current role is {{ Rolename}}</h3>
+            {% if Rolename == "Driver" %}
+                <div class="form-group">
+                    <h3> Registered Vehicle</h3>
+                    <label>Driver</label>
+                    <p class="form-control-static"> {{ Vehicle.driver}}</p>
+                    <label>Capacity</label>
+                    <p class="form-control-static"> {{ Vehicle.capacity}}</p>
+                    <label>Plate_number</label>
+                    <p class="form-control-static"> {{ Vehicle.plate_number}}</p>
+                    <label>Vehicle Type</label>
+                    <p class="form-control-static"> {{ Vehicle.type}}</p>
+                    <label>Special Information</label>
+                    <p class="form-control-static"> {{ Vehicle.special}}</p>
+                </div>
+            {% endif %}
+
+
+
+        </form>
+
+
+        <!-- /.table-responsive -->
+    </div>
+
+
+    <!-- /#wrapper -->
+
+
+
 
 {% endblock %}
 

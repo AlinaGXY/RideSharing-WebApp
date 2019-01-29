@@ -103,7 +103,11 @@ def editRole(request):
 def profile(request):
     curusr = request.user
     Rolename=Role.objects.filter(users=curusr)[0].name
-    return render(request, 'profile.html',{'Rolename':Rolename})
+    if Vehicle.objects.filter(driver=curusr).count() !=0:
+        currvehicle=Vehicle.objects.filter(driver=curusr)[0]
+    else:
+        currvehicle= None
+    return render(request, 'profile.html',{'Rolename':Rolename,'Vehicle':currvehicle})
 
 class RideListView(ListView):
     model = Rides
