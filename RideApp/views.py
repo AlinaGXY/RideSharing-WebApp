@@ -308,7 +308,6 @@ def RideComplete(request, ride_id):
 
 def SharerRequestCreate(request):
     user = request.user
-    Rolename = Role.objects.filter(users=user)[0].name
 
     Rolename = Role.objects.filter(users=user)[0].name
     if Rolename != "Sharer":
