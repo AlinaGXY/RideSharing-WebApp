@@ -46,7 +46,7 @@ def logout_view(request):
 
 @login_required
 def chooseRole(request):
-    Rolename = Role.objects.filter(users=request.user)[0].name
+
     if request.method == 'POST':
         form = RoleForm(request.POST)
 
@@ -69,16 +69,19 @@ def chooseRole(request):
             return redirect('profile')  
 
         else:
+            curusr = request.user
+            Rolename = Role.objects.filter(users=curusr)[0].name
             return render(request, 'choose_role.html', {'form': form, 'Rolename':Rolename})
 
     else:
         form = RoleForm()
-    return render(request, 'choose_role.html', {'form': form, 'Rolename':Rolename})
+
+    return render(request, 'choose_role.html', {'form': form})
 
 
 @login_required
 def editRole(request):
-    Rolename = Role.objects.filter(users=request.user)[0].name
+
     if request.method == 'POST':
         form = RoleForm(request.POST)
         if form.is_valid():
@@ -97,10 +100,14 @@ def editRole(request):
             return redirect('profile')  # TODO
 
         else:
+            curusr = request.user
+            Rolename = Role.objects.filter(users=curusr)[0].name
             return render(request, 'choose_role.html', {'form': form, "Rolename":Rolename})
 
     else:
         form = RoleForm()
+    curusr = request.user
+    Rolename = Role.objects.filter(users=curusr)[0].name
     return render(request, 'choose_role.html', {'form': form, "Rolename":Rolename})
 
 
@@ -134,7 +141,8 @@ class RideListView(ListView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        context['Rolename'] = Role.objects.filter(users=self.request.user)[0].name
+        curusr = self.request.user
+        context['Rolename'] = Role.objects.filter(users=curusr)[0].name
         return context
 
 
@@ -148,14 +156,16 @@ class RideDetailView(DetailView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        context['Rolename'] = Role.objects.filter(users=self.request.user)[0].name
+        curusr = self.request.user
+        context['Rolename'] = Role.objects.filter(users=curusr)[0].name
         return context
 
 
 # https://docs.djangoproject.com/zh-hans/2.1/ref/contrib/messages/#displaying-messages
 @login_required
 def RideCreate(request):
-    Rolename=Role.objects.filter(users=request.user)[0].name
+    curusr = request.user
+    Rolename = Role.objects.filter(users=curusr)[0].name
     if Rolename != "Owner":
         messages.add_message(request, messages.INFO, 'Oops! You can only request a new ride as an owner.')
         return redirect('profile')
@@ -184,7 +194,8 @@ def RideCreate(request):
 
 
 def addVehicle(request):
-    Rolename=Role.objects.filter(users=request.user)[0].name
+    curusr = request.user
+    Rolename = Role.objects.filter(users=curusr)[0].name
     if Rolename != "Driver":
         messages.add_message(request, messages.INFO, 'Oops! You can only add a vehicle as an driver.')
         return redirect('profile')
@@ -252,7 +263,7 @@ def RideConfirm(request, ride_id):
     if ride.status.name != "confirmed" and ride.status.name != "completed":
         s, created = RideStatus.objects.get_or_create(name = "confirmed")
         ride.status = s
-        ride.driver = user
+        ride.driver = user.username
         ride.save()
         return redirect('user-rides')
     else:
@@ -261,9 +272,10 @@ def RideConfirm(request, ride_id):
 
 
 def SharerRequestCreate(request):
-    Rolename = Role.objects.filter(users=request.user)[0].name
+
     user = request.user
 
+    Rolename = Role.objects.filter(users=user)[0].name
     if Rolename != "Sharer":
         messages.add_message(request, messages.INFO, 'Oops! You can only add a vehicle as an sharer.')
         return redirect('profile')

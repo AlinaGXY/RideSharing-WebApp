@@ -34,6 +34,7 @@ urlpatterns = [
     path('rides/<pk>/edit', login_required(views.RideUpdateView.as_view()), name = 'ride-edit'),
     path('addVehicle/', views.addVehicle, name = 'add-vehicle'),
     path('rides/<int:ride_id>/confirm/',views.RideConfirm,name='ride-confirm'),
+
     # path('search/sharer/', views.sh),
     path('sharer/create-request/', views.SharerRequestCreate, name = 'sharer-request-create'),
     path('search/driver/', views.DriverSearch, name='driver-search'),
