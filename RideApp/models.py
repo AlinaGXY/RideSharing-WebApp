@@ -14,6 +14,26 @@ class RideStatus(models.Model):
         ordering = ('name',)
 
 
+
+class SharerRequest(models.Model):
+    sharer = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE,
+        null=True
+    )
+    destination = models.CharField(max_length=150)
+    passenger_number = models.IntegerField(blank=False)
+    earliest_time = models.DateTimeField(default = timezone.now)
+    latest_time = models.DateTimeField(default = timezone.now)
+
+    def __str__(self):
+        return self.sharer.username
+
+    class Meta:
+        ordering = ('-sharer', '-earliest_time')
+
+
+
 class Rides(models.Model):
     passengers = models.ManyToManyField(User)
     owner = models.CharField(max_length=100)
@@ -52,11 +72,11 @@ class Vehicle(models.Model):
     )
     type = models.CharField(max_length=150)
     capacity = models.IntegerField(blank=False)
-    plate_number = models.CharField(max_length=150,blank=False)
+    plate_number = models.CharField(max_length=150, blank=False)
     special = models.TextField(blank=True)
 
     def __str__(self):
-        return (self.plate_number)
+        return self.plate_number
 
     class Meta:
         ordering = ('driver',)

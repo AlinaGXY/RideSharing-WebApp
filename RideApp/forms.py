@@ -40,7 +40,7 @@ class RideCreateForm(forms.ModelForm):
 
     class Meta:
         model = Rides
-        fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
+        fields = ('destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special')
 
     def clean_arrival_time(self):
         data = self.cleaned_data['arrival_time']
@@ -49,7 +49,6 @@ class RideCreateForm(forms.ModelForm):
         if data < timezone.now():
             raise ValidationError('Invalid date time')
 
-        # Remember to always return the cleaned data.
         return data
 
     def clean_passenger_number(self):
@@ -61,15 +60,29 @@ class RideCreateForm(forms.ModelForm):
         return data
 
 
+# class RideUpdateForm(forms.ModelForm):
+#     destination = forms.CharField(max_length = 100)
+#     passenger_number = forms.IntegerField(blank = False)
+#     arrival_time = forms.DateTimeField(default = timezone.now)
+#     shared_allowed = forms.BooleanField(default = True)
+#     vehicle_type = forms.CharField(max_length = 100)
+#     special = forms.TextField(blank=True)
+
+#     class Meta:
+#         model = Rides
+#         fields = ('destination', 'passenger_number', 'arrival_time', 'shared_allowed', 'vehicle_type', 'special')
+    
+
+
 class VehicleCreateForm(forms.ModelForm):
     type = forms.CharField(max_length=150, required=True)
     capacity = forms.IntegerField(required=True)
-    plate_number = forms.CharField(max_length=150,required=True)
+    plate_number = forms.CharField(max_length=150, required=True)
     special = forms.CharField(required=False, widget=forms.Textarea)
 
     class Meta:
         model = Vehicle
-        fields = ['type', 'capacity','plate_number','special']
+        fields = ('type', 'capacity', 'plate_number', 'special')
 
     def clean_capacity(self):
         data = self.cleaned_data['capacity']
@@ -78,3 +91,33 @@ class VehicleCreateForm(forms.ModelForm):
             raise ValidationError('Invalid passenger number')
 
         return data
+
+
+class SharerRequestCreateForm(forms.ModelForm):
+    destination = forms.CharField(max_length=150)
+    passenger_number = forms.IntegerField()
+    earliest_time = forms.DateTimeField(initial = timezone.now)
+    latest_time = forms.DateTimeField(initial = timezone.now)
+
+    class Meta:
+        model = SharerRequest
+        fields = ('destination', 'passenger_number', 'earliest_time', 'latest_time')
+
+    def clean_passenger_number(self):
+        data = self.cleaned_data['passenger_number']
+        if data < 1:
+            raise ValidationError('Invalid passenger number')
+        return data
+
+    def clean_earliest_time(self):
+        data = self.cleaned_data['earliest_time']
+        if data < timezone.now():
+            raise ValidationError('Invalid date time')
+        return data
+
+    def clean_latest_time(self):
+        early = self.cleaned_data['earliest_time']
+        late = self.cleaned_data['latest_time']
+        if late < early:
+            raise ValidationError('Invalid date time')
+        return late
