@@ -33,8 +33,8 @@ urlpatterns = [
     path('ridescreate/', views.RideCreate, name = 'create-new-ride'),
     path('rides/<pk>/edit', login_required(views.RideUpdateView.as_view()), name = 'ride-edit'),
     path('addVehicle/', views.addVehicle, name = 'add-vehicle'),
-    # path('rides/<int:ride_id>/confirm',),
+    path('rides/<int:ride_id>/confirm/',views.RideConfirm,name='ride-confirm'),
     # path('search/sharer/'),
-    # path('search/driver/'),
+     path('search/driver/',views.DriverSearch,name='ride-search'),
     # path('ride/<int:ride_id>/join/', views.RideJoin, name = 'join-ride'),
 ]

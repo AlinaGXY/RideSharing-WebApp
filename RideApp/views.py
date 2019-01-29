@@ -122,7 +122,7 @@ class RideListView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        if Role.objects.filter(users = request.user)[0].name == 'Driver':
+        if Role.objects.filter(users = user)[0].name == 'Driver':
             rides = Rides.objects.filter(Q(driver = user.username))
         else:
             rides = Rides.objects.filter(Q(passengers = user))
@@ -225,7 +225,7 @@ def DriverSearch(request):
         vehicle_type__in=['', vehicle.type],
         special__in=['', vehicle.special]
     )
-    return render(request, 'driver_search.html', {'result':result})
+    return render(request, 'driver_search.html', {'rides':result})
 
 
 def RideConfirm(request, ride_id):
