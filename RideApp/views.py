@@ -275,7 +275,8 @@ def SharerSearch(request):
         arrival_time__gte=condition.earliest_time,
         arrival_time__lte=condition.latest_time
     )
-    return render(request, 'sharer_search.html', {'rides':result, "Rolename":Rolename})
+    return render(request, 'sharer_search.html', 
+                {'rides':result, "Rolename":Rolename, "condition":condition})
 
 
 def RideConfirm(request, ride_id):
@@ -313,7 +314,6 @@ def SharerRequestCreate(request):
     if Rolename != "Sharer":
         messages.add_message(request, messages.INFO, 'Oops! You can only add a vehicle as an sharer.')
         return redirect('profile')
-
     if request.method == 'POST':
         form = SharerRequestCreateForm(request.POST)
         if form.is_valid():
@@ -323,8 +323,8 @@ def SharerRequestCreate(request):
             if currReq.count() == 0:
                 condition.save()
             else:
-                currReq = condition
-                currReq.save()
+                currReq[0] = condition
+                currReq[0].save()
             return redirect('profile') # TODO
         else:
             return render(request, 'sharer_condition.html', {'form': form,"Rolename":Rolename})
@@ -348,7 +348,9 @@ def RideJoin(request, ride_id):
         s, created = RideStatus.objects.get_or_create(name = "shared")
         ride.status = s
         ride.passengers.add(user)
+        ride.passenger_number += SharerRequest.objects.filter(sharer=user)[0].passenger_number
         ride.save()
         return redirect('user-rides')
     else:
+        messages.add_message(request, messages.INFO, 'Currently you can not join this ride')
         return redirect('sharer-search')
