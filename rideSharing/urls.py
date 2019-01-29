@@ -35,6 +35,6 @@ urlpatterns = [
     path('addVehicle/', views.addVehicle, name = 'add-vehicle'),
     path('rides/<int:ride_id>/confirm/',views.RideConfirm,name='ride-confirm'),
     # path('search/sharer/'),
-     path('search/driver/',views.DriverSearch,name='ride-search'),
+     path('search/driver/',views.DriverSearch,name='driver-search'),
     # path('ride/<int:ride_id>/join/', views.RideJoin, name = 'join-ride'),
 ]

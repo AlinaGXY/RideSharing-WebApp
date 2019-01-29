@@ -22,6 +22,15 @@
         {% else %}
             <li class="list-group-item">Share Status: Not open for share</li>
         {% endif %}
+        {% if ride.status.name == "public" %}
+            <li class="list-group-item">Ride Status: Pending</li>
+        {% elif ride.status.name == "private" %}
+            <li class="list-group-item">Ride Status: Pending</li>
+        {% elif ride.status.name == "confirmed" %}
+            <li class="list-group-item">Ride Status: Confirmed</li>
+            {% elif ride.status.name == "completed" %}
+            <li class="list-group-item">Ride Status: Completed</li>
+        {% endif %}
         <li class="list-group-item">Special: {{ ride.special }}</li>
         {% if ride.owner == user.username %}
             {% if ride.status.name == "public" %}
@@ -30,7 +39,7 @@
             {% elif ride.status.name == "private" %}
                 <br/>
                 <button type="button"><a href="{% url 'ride-edit' ride.id %}">Edit</a></button>
-            {% elif ride.status.name == "shared" %}
+            {% else %}
                 <br/>
             {% endif %}
 
