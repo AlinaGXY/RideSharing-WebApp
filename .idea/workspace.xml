@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ce60c8b-6085-49d6-870f-2e3697365230" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/RideApp/templates/sharer_condition.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RideApp/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/RideApp/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RideApp/templates/rides_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/RideApp/templates/rides_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RideApp/templates/rides_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/RideApp/templates/rides_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0002_auto_20190128_2340.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0003_auto_20190128_2341.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0004_auto_20190129_1416.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/RideApp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rideSharing/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/rideSharing/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rideSharing/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/rideSharing/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,8 +32,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RideApp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="232" column="67" selection-start-line="232" selection-start-column="58" selection-end-line="232" selection-end-column="67" />
+            <state relative-caret-position="780">
+              <caret line="251" column="67" selection-start-line="251" selection-start-column="67" selection-end-line="251" selection-end-column="67" />
             </state>
           </provider>
         </entry>
@@ -53,16 +57,16 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rideSharing/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="37" column="58" selection-start-line="37" selection-start-column="58" selection-end-line="37" selection-end-column="58" />
+            <state relative-caret-position="465">
+              <caret line="35" column="79" selection-start-line="35" selection-start-column="79" selection-end-line="35" selection-end-column="79" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RideApp/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="336">
@@ -178,6 +182,12 @@
               <item name="RideSharing-WebApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="RideSharing-WebApp" type="462c0819:PsiDirectoryNode" />
               <item name="RideApp" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RideSharing-WebApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RideSharing-WebApp" type="462c0819:PsiDirectoryNode" />
+              <item name="RideApp" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -257,12 +267,12 @@
       <workItem from="1548619360504" duration="1805000" />
       <workItem from="1548644316734" duration="2396000" />
       <workItem from="1548711523150" duration="11455000" />
-      <workItem from="1548788794402" duration="3416000" />
+      <workItem from="1548788794402" duration="3729000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51407000" />
+    <option name="totallyTimeSpent" value="51720000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -426,8 +436,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RideApp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="232" column="67" selection-start-line="232" selection-start-column="58" selection-end-line="232" selection-end-column="67" />
+        <state relative-caret-position="780">
+          <caret line="251" column="67" selection-start-line="251" selection-start-column="67" selection-end-line="251" selection-end-column="67" />
         </state>
       </provider>
     </entry>
@@ -441,17 +451,17 @@
     <entry file="file://$PROJECT_DIR$/RideApp/urls.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/rideSharing/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="37" column="58" selection-start-line="37" selection-start-column="58" selection-end-line="37" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RideApp/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="95" column="29" lean-forward="true" selection-start-line="95" selection-start-column="29" selection-end-line="95" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rideSharing/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="35" column="79" selection-start-line="35" selection-start-column="79" selection-end-line="35" selection-end-column="79" />
         </state>
       </provider>
     </entry>
