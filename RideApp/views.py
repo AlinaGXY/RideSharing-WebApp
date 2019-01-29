@@ -102,7 +102,7 @@ def editRole(request):
 @login_required
 def profile(request):
     curusr = request.user
-    Rolename=Role.objects.filter(users=curusr)[0].name
+    Rolename = Role.objects.filter(users=curusr)[0].name
     return render(request, 'profile.html',{'Rolename':Rolename})
 
 class RideListView(ListView):
@@ -121,11 +121,6 @@ class RideDetailView(DetailView):
     template_name = 'rides_detail.html'
     context_object_name = "ride"
 
-    # def get_context_data(self, **kwargs):
-    #     # Call the base implementation first to get the context
-    #     context = super(RideDetailView, self).get_context_data(**kwargs)
-    #     context['ride'] = self.request['ride_id']
-    #     return context
 
 # https://docs.djangoproject.com/zh-hans/2.1/ref/contrib/messages/#displaying-messages
 @login_required
@@ -162,6 +157,10 @@ def addVehicle(request):
         messages.add_message(request, messages.INFO, 'Oops! You can only add a vehicle as an driver.')
         return redirect('profile')
 
+    if Vehicle.objects.filter(driver = request.user).count() == 1:
+        messages.add_message(request, messages.INFO, 'Oops! You have already register your car. Maybe you want to edit your car?')
+        return redirect('profile')
+
     if request.method == 'POST':
         form = VehicleCreateForm(request.POST)
         if form.is_valid():
@@ -170,12 +169,12 @@ def addVehicle(request):
             car.save()
             return redirect('profile')
         else:
-            return render(request, 'create_car.html', {'form': form})
+            return render(request, 'create_vehicle.html', {'form': form})
     else:
         messages.add_message(request, messages.INFO, "Invalid input!")
         form = VehicleCreateForm()
 
-    return render(request, 'create_car.html', {'form': form})
+    return render(request, 'create_vehicle.html', {'form': form})
 
 
 class RideUpdateView(UpdateView):
@@ -183,13 +182,32 @@ class RideUpdateView(UpdateView):
     fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
     template_name = 'ride_edit.html'
     context_object_name = 'ride'
+    form_class = RideCreateForm
+
+    def form_valid(self, form):
+        ride = form.save()
+        if ride.shared_allowed:
+            s, created = RideStatus.objects.get_or_create(name = "public")
+            ride.status = s
+        else:
+            s, created = RideStatus.objects.get_or_create(name = "private")
+            ride.status = s
+        self.object = ride
+        return super().form_valid(form)
+
+        
+
+
+# def SharerRequestCreate(request):
 
 
 # @login_required
-# def RideSearch(request, user_id):
+# def SharerSearch(request, user_id):
 #     user = request.user
-#     if Role.objects.filter(users = user)[0].name == "Sharer":
-#         result = Rides.objects.filter(Q(status__name = "public") |)
+#     if Role.objects.filter(users = user)[0].name != "Sharer":
+#         return redirect('profile')
+
+
 
 
 # @login_required
