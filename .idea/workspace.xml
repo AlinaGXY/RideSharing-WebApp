@@ -2,13 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ce60c8b-6085-49d6-870f-2e3697365230" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/RideApp/migrations/0006_auto_20190128_2131.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RideApp/migrations/0007_auto_20190128_2133.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RideApp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/RideApp/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RideApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/RideApp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0002_auto_20190127_1718.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0003_auto_20190127_2209.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0004_auto_20190127_2209.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0005_auto_20190127_2209.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0006_auto_20190128_1639.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0006_auto_20190128_2131.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0007_auto_20190128_1640.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0007_auto_20190128_2133.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0008_auto_20190128_1643.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0009_auto_20190128_1643.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0010_auto_20190128_1643.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0011_auto_20190128_1643.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0012_auto_20190128_1644.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0013_auto_20190128_1751.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0014_auto_20190128_1753.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0015_auto_20190128_1754.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0016_auto_20190128_1754.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0017_auto_20190128_1754.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0018_auto_20190128_1758.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0019_auto_20190128_1759.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0020_auto_20190128_1801.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0021_auto_20190128_1803.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0022_auto_20190128_1804.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0023_auto_20190128_1807.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0024_auto_20190128_2116.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/migrations/0025_auto_20190128_2118.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/templates/ride_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/RideApp/templates/ride_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RideApp/templates/rides_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/RideApp/templates/rides_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RideApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/RideApp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rideSharing/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/rideSharing/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rideSharing/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/rideSharing/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,26 +46,62 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RideApp/templates/create_vehicle.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="225">
+              <caret line="15" column="11" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="15" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RideApp/templates/profile.html">
+        <entry file="file://$PROJECT_DIR$/RideApp/templates/register.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+            <state relative-caret-position="294">
+              <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/RideApp/templates/rides_detail.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="33" column="21" selection-end-line="51" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RideApp/templates/rides_list.html">
+        <entry file="file://$PROJECT_DIR$/RideApp/templates/ride_edit.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+            <state relative-caret-position="330">
+              <caret line="22" column="31" selection-end-line="33" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rideSharing/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="81" column="29" selection-start-line="81" selection-start-column="29" selection-end-line="81" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RideApp/templates/create_ride.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="14" lean-forward="true" selection-end-line="21" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RideApp/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="404">
+              <caret line="201" column="8" selection-start-line="201" selection-start-column="8" selection-end-line="201" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -48,26 +109,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rideSharing/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="34" column="34" lean-forward="true" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
+            <state relative-caret-position="390">
+              <caret line="30" column="86" selection-start-line="30" selection-start-column="76" selection-end-line="30" selection-end-column="86" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RideApp/templates/choose_role.html">
+        <entry file="file://$PROJECT_DIR$/RideApp/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="51" column="41" lean-forward="true" selection-start-line="51" selection-start-column="41" selection-end-line="51" selection-end-column="41" />
+            <state relative-caret-position="188">
+              <caret line="58" column="33" selection-start-line="58" selection-start-column="33" selection-end-line="58" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/RideApp/views.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RideApp/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="104" lean-forward="true" selection-start-line="104" selection-end-line="104" />
+            <state relative-caret-position="856">
+              <caret line="71" column="23" lean-forward="true" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -102,18 +163,18 @@
         <option value="$PROJECT_DIR$/RideApp/templates/login.html" />
         <option value="$PROJECT_DIR$/RideApp/templates/logout.html" />
         <option value="$PROJECT_DIR$/RideApp/templates/register.html" />
-        <option value="$PROJECT_DIR$/rideSharing/settings.py" />
         <option value="$PROJECT_DIR$/RideApp/templates/choose_role.html" />
         <option value="$PROJECT_DIR$/RideApp/templates/ride_edit_list.html" />
-        <option value="$PROJECT_DIR$/RideApp/templates/ride_edit.html" />
-        <option value="$PROJECT_DIR$/RideApp/templates/rides_detail.html" />
         <option value="$PROJECT_DIR$/RideApp/templates/rides_list.html" />
         <option value="$PROJECT_DIR$/RideApp/templates/create_vehicle.html" />
         <option value="$PROJECT_DIR$/RideApp/models.py" />
         <option value="$PROJECT_DIR$/RideApp/forms.py" />
         <option value="$PROJECT_DIR$/RideApp/templates/base.html" />
         <option value="$PROJECT_DIR$/RideApp/templates/profile.html" />
+        <option value="$PROJECT_DIR$/RideApp/templates/ride_edit.html" />
+        <option value="$PROJECT_DIR$/rideSharing/settings.py" />
         <option value="$PROJECT_DIR$/RideApp/views.py" />
+        <option value="$PROJECT_DIR$/RideApp/templates/rides_detail.html" />
       </list>
     </option>
   </component>
@@ -140,6 +201,12 @@
               <item name="RideSharing-WebApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="RideSharing-WebApp" type="462c0819:PsiDirectoryNode" />
               <item name="RideApp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RideSharing-WebApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RideSharing-WebApp" type="462c0819:PsiDirectoryNode" />
+              <item name="RideApp" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RideSharing-WebApp" type="b2602c69:ProjectViewProjectNode" />
@@ -223,12 +290,12 @@
       <workItem from="1548615805393" duration="2958000" />
       <workItem from="1548619360504" duration="1805000" />
       <workItem from="1548644316734" duration="2396000" />
-      <workItem from="1548711523150" duration="8721000" />
+      <workItem from="1548711523150" duration="9952000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45257000" />
+    <option name="totallyTimeSpent" value="46488000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2" y="56" width="1136" height="781" extended-state="0" />
@@ -296,13 +363,6 @@
     <entry file="file://$PROJECT_DIR$/RideApp/tests.py" />
     <entry file="file://$PROJECT_DIR$/rideSharing/__init__.py" />
     <entry file="file://$PROJECT_DIR$/rideSharing/views.py" />
-    <entry file="file://$PROJECT_DIR$/rideSharing/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="81" column="29" selection-start-line="81" selection-start-column="29" selection-end-line="81" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RideApp/templates/ride_edit_list.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="514">
@@ -310,31 +370,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RideApp/templates/ride_edit.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RideApp/templates/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="529">
           <caret line="80" selection-start-line="80" selection-end-line="97" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideApp/templates/register.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideApp/templates/rides_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
         </state>
       </provider>
     </entry>
@@ -348,27 +387,6 @@
     <entry file="file://$PROJECT_DIR$/RideApp/urls.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/rideSharing/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="34" column="34" lean-forward="true" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideApp/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="58" column="33" selection-start-line="58" selection-start-column="33" selection-end-line="58" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideApp/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="71" column="52" selection-start-line="71" selection-start-column="52" selection-end-line="71" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RideApp/templates/choose_role.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
@@ -376,24 +394,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RideApp/templates/create_vehicle.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RideApp/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="139">
           <caret line="80" column="29" selection-start-line="80" selection-start-column="29" selection-end-line="80" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideApp/templates/create_ride.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="14" lean-forward="true" selection-end-line="21" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -411,10 +415,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/RideApp/templates/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideApp/templates/create_ride.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="14" lean-forward="true" selection-end-line="21" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideApp/templates/create_vehicle.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="11" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="15" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideApp/templates/ride_edit.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="31" selection-end-line="33" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rideSharing/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="81" column="29" selection-start-line="81" selection-start-column="29" selection-end-line="81" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideApp/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="58" column="33" selection-start-line="58" selection-start-column="33" selection-end-line="58" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideApp/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="856">
+          <caret line="71" column="23" lean-forward="true" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rideSharing/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="30" column="86" selection-start-line="30" selection-start-column="76" selection-end-line="30" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/RideApp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="104" lean-forward="true" selection-start-line="104" selection-end-line="104" />
+        <state relative-caret-position="404">
+          <caret line="201" column="8" selection-start-line="201" selection-start-column="8" selection-end-line="201" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideApp/templates/rides_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="21" selection-end-line="51" selection-end-column="14" />
         </state>
       </provider>
     </entry>

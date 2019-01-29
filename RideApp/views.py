@@ -185,21 +185,22 @@ def addVehicle(request):
 
 class RideUpdateView(UpdateView):
     model = Rides
-    fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
+    #fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
     template_name = 'ride_edit.html'
     context_object_name = 'ride'
     form_class = RideCreateForm
 
     def form_valid(self, form):
         ride = form.save()
+        self.object = ride
         if ride.shared_allowed:
             s, created = RideStatus.objects.get_or_create(name = "public")
-            ride.status = s
+            self.object.status = s
         else:
             s, created = RideStatus.objects.get_or_create(name = "private")
-            ride.status = s
-        self.object = ride
-        return super().form_valid(form)
+            self.object.status = s
+        
+        return redirect("user-rides")
 
         
 
