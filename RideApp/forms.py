@@ -5,6 +5,8 @@ from django.utils import timezone
 
 from .models import *
 from django.core.exceptions import ValidationError
+
+
 class UserCreationForm(UserCreationForm):
     email = forms.EmailField(label="Email", required=True)
 
@@ -29,6 +31,7 @@ class RoleForm(forms.Form):
     class Meta:
         model = Role
         fields = ("name")
+
 
 class RideCreateForm(forms.ModelForm):
     destination = forms.CharField(max_length = 100)
@@ -58,20 +61,6 @@ class RideCreateForm(forms.ModelForm):
             raise ValidationError('Invalid passenger number')
 
         return data
-
-
-# class RideUpdateForm(forms.ModelForm):
-#     destination = forms.CharField(max_length = 100)
-#     passenger_number = forms.IntegerField(blank = False)
-#     arrival_time = forms.DateTimeField(default = timezone.now)
-#     shared_allowed = forms.BooleanField(default = True)
-#     vehicle_type = forms.CharField(max_length = 100)
-#     special = forms.TextField(blank=True)
-
-#     class Meta:
-#         model = Rides
-#         fields = ('destination', 'passenger_number', 'arrival_time', 'shared_allowed', 'vehicle_type', 'special')
-    
 
 
 class VehicleCreateForm(forms.ModelForm):

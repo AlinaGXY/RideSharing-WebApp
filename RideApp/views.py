@@ -48,9 +48,11 @@ def logout_view(request):
 def chooseRole(request):
     if request.method == 'POST':
         form = RoleForm(request.POST)
+
         if form.is_valid():
             role_name = form.cleaned_data['name']
             curusr = request.user
+
             if Role.objects.filter(users=curusr).count():
                 oldRolename = Role.objects.filter(users=curusr)[0].name
                 oldrole, created = Role.objects.get_or_create(
@@ -63,7 +65,7 @@ def chooseRole(request):
             )
             role.users.add(request.user)
 
-            return redirect('profile')  # TODO
+            return redirect('profile')  
 
         else:
             return render(request, 'choose_role.html', {'form': form})
@@ -71,6 +73,7 @@ def chooseRole(request):
     else:
         form = RoleForm()
     return render(request, 'choose_role.html', {'form': form})
+
 
 @login_required
 def editRole(request):
@@ -188,43 +191,27 @@ def addVehicle(request):
 
 class RideUpdateView(UpdateView):
     model = Rides
-<<<<<<< HEAD
-    # fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
-=======
-    #fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
->>>>>>> c3394dd15b029dea3690d55929c87d3a5cb14a49
     template_name = 'ride_edit.html'
     context_object_name = 'ride'
     form_class = RideCreateForm
 
     def form_valid(self, form):
-<<<<<<< HEAD
         ride = form.save() 
         self.object = ride
-        if ride.shared_allowed:    # TODO
-=======
-        ride = form.save()
-        self.object = ride
         if ride.shared_allowed:
->>>>>>> c3394dd15b029dea3690d55929c87d3a5cb14a49
             s, created = RideStatus.objects.get_or_create(name = "public")
             self.object.status = s
         else:
             s, created = RideStatus.objects.get_or_create(name = "private")
             self.object.status = s
-<<<<<<< HEAD
-        return redirect('profile')
-=======
-        
+        self.object.save()
         return redirect("user-rides")
->>>>>>> c3394dd15b029dea3690d55929c87d3a5cb14a49
-
 
 
 # def SharerRequestCreate(request):
 
 
-# @login_required
+@login_required
 def DriverSearch(request):
     user = request.user
     if Role.objects.filter(users = user)[0].name != "Driver":
@@ -241,16 +228,19 @@ def DriverSearch(request):
     return render(request, 'driver_search.html', {'result':result})
 
 
+def RideConfirm(request, ride_id):
+    ride = Rides.objects.get(pk=ride_id)
+    s, created = RideStatus.objects.get_or_create(name = "confirmed")
+    ride.status = s
+    ride.driver = request.user.username
+    ride.save()
+    return redirect('user-rides')
 
 
-
-# @login_required
-# def RideJoin(request, ride_id):
-#     # TODO: check status and decide if join is valid
-#     user = request.user
-#     user.groups.add("Sharer")
-#     ride = Rides.objects.get(pk = ride_id)
-#     ride.status = 'shared'
-#     ride.passengers.add(user)
-#     ride.save()
-#     return render(request, 'rides_list.html')
+def RideJoin(request, ride_id):
+    ride = Rides.objects.get(pk = ride_id)
+    s, created = RideStatus.objects.get_or_create(name = "shared")
+    ride.status = s
+    ride.passengers.add(request.user)
+    ride.save()
+    return redirect('user-rides')
