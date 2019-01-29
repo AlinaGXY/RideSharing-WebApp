@@ -113,7 +113,10 @@ class RideListView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        rides = Rides.objects.filter(Q(passengers = user) | Q(driver = user.username))
+        if Role.objects.filter(users = request.user)[0].name == 'Driver':
+            rides = Rides.objects.filter(Q(driver = user.username))
+        else:
+            rides = Rides.objects.filter(Q(passengers = user))
         return rides
 
 class RideDetailView(DetailView):
@@ -179,33 +182,43 @@ def addVehicle(request):
 
 class RideUpdateView(UpdateView):
     model = Rides
-    fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
+    # fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
     template_name = 'ride_edit.html'
     context_object_name = 'ride'
     form_class = RideCreateForm
 
     def form_valid(self, form):
-        ride = form.save()
-        if ride.shared_allowed:
+        ride = form.save() 
+        self.object = ride
+        if ride.shared_allowed:    # TODO
             s, created = RideStatus.objects.get_or_create(name = "public")
-            ride.status = s
+            self.object.status = s
         else:
             s, created = RideStatus.objects.get_or_create(name = "private")
-            ride.status = s
-        self.object = ride
-        return super().form_valid(form)
+            self.object.status = s
+        return redirect('profile')
 
-        
 
 
 # def SharerRequestCreate(request):
 
 
 # @login_required
-# def SharerSearch(request, user_id):
-#     user = request.user
-#     if Role.objects.filter(users = user)[0].name != "Sharer":
-#         return redirect('profile')
+def DriverSearch(request):
+    user = request.user
+    if Role.objects.filter(users = user)[0].name != "Driver":
+        return redirect('profile')
+
+    vehicle = Vehicle.objects.filter(driver=user)[0]
+    # open type special capacity
+    result = Rides.objects.filter(
+        status__name__in=['public', 'private'], 
+        passenger_number__lt=vehicle.capacity,
+        vehicle_type__in=['', vehicle.type],
+        special__in=['', vehicle.special]
+    )
+    return render(request, 'driver_search.html', {'result':result})
+
 
 
 

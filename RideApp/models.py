@@ -64,6 +64,8 @@ class Role(models.Model):
     class Meta:
         ordering = ('name',)
 
+
+
 class Vehicle(models.Model):
     driver = models.OneToOneField(
         User,
