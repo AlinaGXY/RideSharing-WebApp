@@ -49,6 +49,7 @@ class Rides(models.Model):
     def __str__(self):
         return self.owner
 
+
 class Role(models.Model):
     Role_Choices = {
     ('Owner', 'Owner'),

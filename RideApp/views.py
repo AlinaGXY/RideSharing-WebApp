@@ -257,6 +257,27 @@ def DriverSearch(request):
     return render(request, 'driver_search.html', {'rides':result, "Rolename":Rolename})
 
 
+def SharerSearch(request):
+    user = request.user
+    Rolename = Role.objects.filter(users=user)[0].name
+    if Rolename != "Sharer":
+        return redirect('profile')
+
+    condition = SharerRequest.objects.filter(sharer = user)
+    if (condition.count() == 0):
+        return redirect('sharer-request-create')
+
+    condition = condition[0]
+    result = Rides.objects.filter(
+        status__name='public',
+        destination=condition.destination,
+        passenger_number__lt=condition.passenger_number,
+        arrival_time__gte=condition.earliest_time,
+        arrival_time__lte=condition.latest_time
+    )
+    return render(request, 'sharer_search.html', {'rides':result, "Rolename":Rolename})
+
+
 def RideConfirm(request, ride_id):
     user = request.user
     ride = Rides.objects.get(pk=ride_id)
@@ -271,9 +292,22 @@ def RideConfirm(request, ride_id):
         return redirect('driver-search')
 
 
-def SharerRequestCreate(request):
-
+def RideComplete(request, ride_id):
     user = request.user
+    ride = Rides.objects.get(pk=ride_id)
+    if ride.status.name == "confirmed" and ride.driver == user.username:
+        s, created = RideStatus.objects.get_or_create(name = "completed")
+        ride.status = s
+        ride.save()
+        return redirect('profile')
+    else:
+        messages.add_message(request, messages.INFO, "Ride can only be completed by the driver!")
+        return redirect('user-rides')
+
+
+def SharerRequestCreate(request):
+    user = request.user
+    Rolename = Role.objects.filter(users=user)[0].name
 
     Rolename = Role.objects.filter(users=user)[0].name
     if Rolename != "Sharer":
