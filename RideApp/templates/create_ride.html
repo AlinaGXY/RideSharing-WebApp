@@ -4,11 +4,7 @@
 
     <h2 class="page-header">Create a New Request</h2>
     
-    {% for message in messages %}
-    <div class="alert alert-danger" role="alert">
-        <li>{{ message }}</li>
-    </div>
-    {% endfor %}
+
 
     <form method="POST">
         <div>{% csrf_token %}

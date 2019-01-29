@@ -88,21 +88,16 @@
                                 <li>
                                     <a href="/addVehicle">Register My Vehicle</a>
                                 </li>
-                                <li>
-                                    <a href="/editrole"><i class="fa fa-car fa-fw"></i> Change Role</a>
-                                </li>
+
                             </ul>
-                            <!-- /.nav-second-level -->
+                        <li>
+                            <a href="/editrole"><i class="fa fa-car fa-fw"></i> Change Role</a>
                         </li>
-                    {% else %}
+                        <!-- /.nav-second-level -->
+                        </li>
+                    {% elif Rolename == "Owner" %}
                         <li>
                             <a href="/allRides"><i class="fa fa-user fa-fw"></i> My Rides</a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fa fa-search fa-fw"></i> Search Rides</a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fa fa-hand-o-right fa-fw"></i> Select Rides</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-edit fa-fw"></i> Request Rides<span class="fa arrow"></span></a>
@@ -116,6 +111,22 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <li>
+                            <a href="/editrole"><i class="fa fa-car fa-fw"></i> Change Role</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="/allRides"><i class="fa fa-user fa-fw"></i> My Rides</a>
+                        </li>
+
+                        <li>
+                            <a href="/search/sharer/"><i class="fa fa-user fa-fw"></i> Search Rides</a>
+                        </li>
+
+                        <li>
+                            <a href="/sharer/create-request/"><i class="fa fa-edit fa-fw"></i>Create a New Share Request</a>
+                        </li>
+
                         <li>
                             <a href="/editrole"><i class="fa fa-car fa-fw"></i> Change Role</a>
                         </li>

@@ -59,6 +59,8 @@
                                         {% if ride.driver == user.username %}
                                             {% if ride.status.name == 'confirmed' %}
                                                 <td><a href="{% url 'ride-complete' ride.id %}">Complete</a></td>
+                                                {% elif ride.status.name == 'completed' %}
+                                                <td><a href="{% url 'ride-detail' ride.id %}">View Details</a></td>
                                             {% endif %}
                                         {% endif %}
                                     {% endif %}

@@ -299,7 +299,7 @@ def RideComplete(request, ride_id):
         s, created = RideStatus.objects.get_or_create(name = "completed")
         ride.status = s
         ride.save()
-        return redirect('profile')
+        return redirect('user-rides')
     else:
         messages.add_message(request, messages.INFO, "Ride can only be completed by the driver!")
         return redirect('user-rides')
