@@ -102,8 +102,14 @@ def editRole(request):
 @login_required
 def profile(request):
     curusr = request.user
-    Rolename = Role.objects.filter(users=curusr)[0].name
-    return render(request, 'profile.html',{'Rolename':Rolename})
+
+    Rolename=Role.objects.filter(users=curusr)[0].name
+    if Vehicle.objects.filter(driver=curusr).count() !=0:
+        currvehicle=Vehicle.objects.filter(driver=curusr)[0]
+    else:
+        currvehicle= None
+    return render(request, 'profile.html',{'Rolename':Rolename,'Vehicle':currvehicle})
+
 
 class RideListView(ListView):
     model = Rides
@@ -182,21 +188,36 @@ def addVehicle(request):
 
 class RideUpdateView(UpdateView):
     model = Rides
+<<<<<<< HEAD
     # fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
+=======
+    #fields = ['destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special']
+>>>>>>> c3394dd15b029dea3690d55929c87d3a5cb14a49
     template_name = 'ride_edit.html'
     context_object_name = 'ride'
     form_class = RideCreateForm
 
     def form_valid(self, form):
+<<<<<<< HEAD
         ride = form.save() 
         self.object = ride
         if ride.shared_allowed:    # TODO
+=======
+        ride = form.save()
+        self.object = ride
+        if ride.shared_allowed:
+>>>>>>> c3394dd15b029dea3690d55929c87d3a5cb14a49
             s, created = RideStatus.objects.get_or_create(name = "public")
             self.object.status = s
         else:
             s, created = RideStatus.objects.get_or_create(name = "private")
             self.object.status = s
+<<<<<<< HEAD
         return redirect('profile')
+=======
+        
+        return redirect("user-rides")
+>>>>>>> c3394dd15b029dea3690d55929c87d3a5cb14a49
 
 
 

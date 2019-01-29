@@ -25,9 +25,13 @@
         <li class="list-group-item">Special: {{ ride.special }}</li>
         {% if ride.owner == user.username %}
             {% if ride.status.name == "public" %}
+                <br/>
                 <button type="button"><a href="{% url 'ride-edit' ride.id %}">Edit</a></button>
             {% elif ride.status.name == "private" %}
+                <br/>
                 <button type="button"><a href="{% url 'ride-edit' ride.id %}">Edit</a></button>
+            {% elif ride.status.name == "shared" %}
+                <br/>
             {% endif %}
 
         {% endif %}
