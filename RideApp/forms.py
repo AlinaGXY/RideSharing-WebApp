@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
+import datetime
 
 from .models import *
 from django.core.exceptions import ValidationError
@@ -104,9 +105,9 @@ class SharerRequestCreateForm(forms.ModelForm):
             raise ValidationError('Invalid date time')
         return data
 
-    def clean_latest_time(self):
-        early = self.cleaned_data['earliest_time']
-        late = self.cleaned_data['latest_time']
-        if late < early:
+    def clean(self):
+        cleaned_data = super().clean()
+        early = cleaned_data['earliest_time']
+        late = cleaned_data['latest_time']
+        if late - early < datetime.timedelta(seconds=0):
             raise ValidationError('Invalid date time')
-        return late

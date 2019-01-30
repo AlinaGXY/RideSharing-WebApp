@@ -322,8 +322,9 @@ def SharerRequestCreate(request):
             if currReq.count() == 0:
                 condition.save()
             else:
-                currReq[0] = condition
-                currReq[0].save()
+                currReq = currReq[0]
+                currReq = condition
+                currReq.save()
             return redirect('profile') # TODO
         else:
             return render(request, 'sharer_condition.html', {'form': form,"Rolename":Rolename})
