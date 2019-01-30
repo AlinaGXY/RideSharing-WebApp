@@ -249,7 +249,7 @@ def DriverSearch(request):
     vehicle = Vehicle.objects.filter(driver=user)[0]
     # open type special capacity
     result = Rides.objects.filter(
-        status__name__in=['public', 'private'], 
+        status__name__in=['public', 'private','shared'],
         passenger_number__lt=vehicle.capacity,
         vehicle_type__in=['', vehicle.type],
         special__in=['', vehicle.special]
