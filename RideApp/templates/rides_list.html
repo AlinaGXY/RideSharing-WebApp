@@ -63,6 +63,9 @@
                                                 <td><a href="{% url 'ride-detail' ride.id %}">View Details</a></td>
                                             {% endif %}
                                         {% endif %}
+                                        {% if ride.sharer == user.username %}
+                                                <td><a href="{% url 'ride-detail' ride.id %}">View Details</a></td>
+                                        {% endif %}
                                     {% endif %}
                                 </tr>
                             {% endfor %}
