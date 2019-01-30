@@ -26,6 +26,8 @@
             <li class="list-group-item">Ride Status: Pending</li>
         {% elif ride.status.name == "private" %}
             <li class="list-group-item">Ride Status: Pending</li>
+          {% elif ride.status.name == "shared" %}
+            <li class="list-group-item">Ride Status: Pending</li>
         {% elif ride.status.name == "confirmed" %}
             <li class="list-group-item">Ride Status: Confirmed</li>
             {% elif ride.status.name == "completed" %}
