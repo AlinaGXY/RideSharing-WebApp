@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView, UpdateView
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.db.models import Q
+from django.core.mail import send_mail
 from .models import *
 
 from .forms import *
@@ -200,16 +201,22 @@ def addVehicle(request):
         messages.add_message(request, messages.INFO, 'Oops! You can only add a vehicle as an driver.')
         return redirect('profile')
 
-    if Vehicle.objects.filter(driver = request.user).count() == 1:
-        messages.add_message(request, messages.INFO, 'Oops! You have already register your car. Maybe you want to edit your car?')
-        return redirect('profile')
+    # if Vehicle.objects.filter(driver = request.user).count() == 1:
+    #     messages.add_message(request, messages.INFO, 'Oops! You have already register your car. Maybe you want to edit your car?')
+    #     return redirect('profile')
 
     if request.method == 'POST':
         form = VehicleCreateForm(request.POST)
         if form.is_valid():
             car = form.save()
             car.driver = request.user
-            car.save()
+            oldcar = Vehicle.objects.filter(driver = request.user)
+            if oldcar.count() == 1:
+                oldcar = oldcar[0]
+                oldcar = car
+                oldcar.save()
+            else:
+                car.save()
             return redirect('profile')
         else:
             return render(request, 'create_vehicle.html', {'form': form, "Rolename":Rolename})
@@ -249,7 +256,7 @@ def DriverSearch(request):
     vehicle = Vehicle.objects.filter(driver=user)[0]
     # open type special capacity
     result = Rides.objects.filter(
-        status__name__in=['public', 'private'], 
+        status__name__in=['public', 'private', 'shared'], 
         passenger_number__lt=vehicle.capacity,
         vehicle_type__in=['', vehicle.type],
         special__in=['', vehicle.special]
@@ -287,6 +294,12 @@ def RideConfirm(request, ride_id):
         ride.status = s
         ride.driver = user.username
         ride.save()
+        send_mail(
+            'Your ride has been COMFIRMED!', 
+            'Hi, your ride has been confirmed by ' + user.username + " !", 
+            'xinyigong96@hotmail.com', 
+            [ person.email for person in ride.passengers.all() ]
+        )
         return redirect('user-rides')
     else:
         messages.add_message(request, messages.INFO, "This ride has been confirmed by others!")

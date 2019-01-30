@@ -127,3 +127,19 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'profile'
 
 LOGIN_URL = 'login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_TLS = True
+
+EMAIL_HOST = 'smtp.live.com'
+
+EMAIL_PORT = 587
+
+EMAIL_HOST_USER = 'xinyigong96@hotmail.com'
+
+EMAIL_HOST_PASSWORD = 'Miss779889_'
+
+EMAIL_FROM = 'xinyigong96@hotmail.com'
+
+# DEFAULT_FROM_EMAIL = 'RideSharing APP <noreply@hotmail.com>'
