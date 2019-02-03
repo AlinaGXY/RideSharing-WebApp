@@ -184,10 +184,12 @@ def RideCreate(request):
             ride.owner = request.user.username
             ride.passengers.add(request.user)
             ride.save()
-            return redirect('profile')
+            success="Create a ride successfully!"
+            return render(request, 'create_ride.html', {'form': form, "Rolename":Rolename,"success":success})
         else:
-            messages.add_message(request, messages.INFO, "Invalid input!")
-            return render(request, 'create_ride.html', {'form': form, "Rolename":Rolename})
+            error="Invalid input!"
+
+            return render(request, 'create_ride.html', {'form': form, "Rolename":Rolename,"error":error})
     else:
         form = RideCreateForm()
 
@@ -214,12 +216,18 @@ def addVehicle(request):
             if oldcar.count() == 1:
                 oldcar = oldcar[0]
                 oldcar = car
-                oldcar.save()
+                try:
+                    oldcar.save()
+                except Exception as e:
+                    error="You can only register one vehicle!"
+                    return render(request, 'create_vehicle.html', {'form': form, "Rolename": Rolename,"error":error})
             else:
                 car.save()
-            return redirect('profile')
+                success="Successful registration!"
+            return render(request, 'create_vehicle.html', {'form': form, "Rolename":Rolename,"success":success})
         else:
-            return render(request, 'create_vehicle.html', {'form': form, "Rolename":Rolename})
+            error="Invalid input!"
+            return render(request, 'create_vehicle.html', {'form': form, "Rolename":Rolename,"error":error})
     else:
         messages.add_message(request, messages.INFO, "Invalid input!")
         form = VehicleCreateForm()
@@ -328,6 +336,11 @@ def SharerRequestCreate(request):
         return redirect('profile')
     if request.method == 'POST':
         form = SharerRequestCreateForm(request.POST)
+        try:
+            form.is_valid()
+        except Exception as e:
+            error = "Invalid input!"
+            return render(request, 'sharer_condition.html', {'form': form, "Rolename": Rolename, "error": error})
         if form.is_valid():
             condition = form.save()
             condition.sharer = user
@@ -338,9 +351,11 @@ def SharerRequestCreate(request):
                 currReq = currReq[0]
                 currReq = condition
                 currReq.save()
-            return redirect('profile') # TODO
+            success="Create a Share Request Successfully!"
+            return render(request, 'sharer_condition.html', {'form': form,"Rolename":Rolename,"success":success})
         else:
-            return render(request, 'sharer_condition.html', {'form': form,"Rolename":Rolename})
+            error="Invalid input!"
+            return render(request, 'sharer_condition.html', {'form': form,"Rolename":Rolename,"error":error})
     else:
         form = SharerRequestCreateForm()
 
