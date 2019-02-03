@@ -253,7 +253,11 @@ def DriverSearch(request):
     if Rolename != "Driver":
         return redirect('profile')
 
-    vehicle = Vehicle.objects.filter(driver=user)[0]
+    vehicle = Vehicle.objects.filter(driver=user)
+    if vehicle.count() == 0:
+        return redirect('add-vehicle')
+
+    vehicle = vehicle[0]
     # open type special capacity
     result = Rides.objects.filter(
         status__name__in=['public', 'private', 'shared'], 
@@ -271,7 +275,7 @@ def SharerSearch(request):
         return redirect('profile')
 
     condition = SharerRequest.objects.filter(sharer = user)
-    if (condition.count() == 0):
+    if condition.count() == 0:
         return redirect('sharer-request-create')
 
     condition = condition[0]
@@ -363,6 +367,9 @@ def RideJoin(request, ride_id):
         ride.passengers.add(user)
         ride.passenger_number += SharerRequest.objects.filter(sharer=user)[0].passenger_number
         ride.save()
+
+        # delete share request
+        SharerRequest.objects.filter(sharer=user).delete()
         return redirect('user-rides')
     else:
         messages.add_message(request, messages.INFO, 'Currently you can not join this ride')

@@ -142,4 +142,4 @@ EMAIL_HOST_PASSWORD = 'Miss779889_'
 
 EMAIL_FROM = 'xinyigong96@hotmail.com'
 
-# DEFAULT_FROM_EMAIL = 'RideSharing APP <noreply@hotmail.com>'
+DEFAULT_FROM_EMAIL = 'RideSharing APP <noreply@hotmail.com>'

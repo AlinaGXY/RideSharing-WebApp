@@ -27,7 +27,7 @@ class SharerRequest(models.Model):
     latest_time = models.DateTimeField(default = timezone.now)
 
     def __str__(self):
-        return self.sharer.username
+        return self.destination
 
     class Meta:
         ordering = ('-sharer', '-earliest_time')
