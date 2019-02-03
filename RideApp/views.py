@@ -276,6 +276,7 @@ def DriverSearch(request):
     return render(request, 'driver_search.html', {'rides':result, "Rolename":Rolename})
 
 
+@login_required
 def SharerSearch(request):
     user = request.user
     Rolename = Role.objects.filter(users=user)[0].name
@@ -290,7 +291,6 @@ def SharerSearch(request):
     result = Rides.objects.filter(
         status__name='public',
         destination=condition.destination,
-        passenger_number__lt=condition.passenger_number,
         arrival_time__gte=condition.earliest_time,
         arrival_time__lte=condition.latest_time
     )
@@ -298,6 +298,7 @@ def SharerSearch(request):
                 {'rides':result, "Rolename":Rolename, "condition":condition})
 
 
+@login_required
 def RideConfirm(request, ride_id):
     user = request.user
     ride = Rides.objects.get(pk=ride_id)
@@ -318,6 +319,7 @@ def RideConfirm(request, ride_id):
         return redirect('driver-search')
 
 
+@login_required
 def RideComplete(request, ride_id):
     user = request.user
     ride = Rides.objects.get(pk=ride_id)
@@ -331,6 +333,7 @@ def RideComplete(request, ride_id):
         return redirect('user-rides')
 
 
+@login_required
 def SharerRequestCreate(request):
     user = request.user
 
@@ -345,21 +348,19 @@ def SharerRequestCreate(request):
         except Exception as e:
             error = "Invalid input!"
             return render(request, 'sharer_condition.html', {'form': form, "Rolename": Rolename, "error": error})
-        if form.is_valid():
-            condition = form.save()
-            condition.sharer = user
-            currReq = SharerRequest.objects.filter(sharer=user)
-            if currReq.count() == 0:
-                condition.save()
-            else:
-                currReq = currReq[0]
-                currReq = condition
-                currReq.save()
-            success="Create a Share Request Successfully!"
-            return render(request, 'sharer_condition.html', {'form': form,"Rolename":Rolename,"success":success})
-        else:
-            error="Invalid input!"
-            return render(request, 'sharer_condition.html', {'form': form,"Rolename":Rolename,"error":error})
+
+        condition = form.save()
+        condition.sharer = user
+        currReq = SharerRequest.objects.filter(sharer=user)
+
+        # remove original one
+        if currReq.count() != 0:
+            SharerRequest.objects.filter(sharer=user).delete()
+        
+        condition.save()
+        success="Create a Share Request Successfully!"
+        return render(request, 'sharer_condition.html', {'form': form,"Rolename":Rolename,"success":success})
+    
     else:
         form = SharerRequestCreateForm()
 
@@ -373,6 +374,7 @@ class SharerRequestUpdateView(UpdateView):
     form_class = SharerRequestCreateForm
 
 
+@login_required
 def RideJoin(request, ride_id):
     user = request.user
     ride = Rides.objects.get(pk = ride_id)
