@@ -79,6 +79,12 @@ def chooseRole(request):
 
     return render(request, 'choose_role.html', {'form': form})
 
+class UserUpdateView(UpdateView):
+    model = User
+    template_name = "user_update.html"
+    context_object_name = 'user'
+    form_class = UserUpdateForm
+
 
 @login_required
 def editRole(request):
@@ -161,6 +167,16 @@ class RideDetailView(DetailView):
         context['Rolename'] = Role.objects.filter(users=curusr)[0].name
         return context
 
+def RideDetail(request, ride_id):
+    user = request.user
+    ride = Rides.objects.get(pk=ride_id)
+    Rolename = Role.objects.filter(users=user)[0].name
+    if ride.driver == None or ride.driver == '':
+        driver = None
+    else:
+        driver = User.objects.get(username = ride.driver)
+    return render(request, 'rides_detail.html', {'ride' : ride, 'driver' : driver})
+
 
 # https://docs.djangoproject.com/zh-hans/2.1/ref/contrib/messages/#displaying-messages
 @login_required
@@ -199,13 +215,6 @@ def RideCreate(request):
 def addVehicle(request):
     curusr = request.user
     Rolename = Role.objects.filter(users=curusr)[0].name
-    if Rolename != "Driver":
-        messages.add_message(request, messages.INFO, 'Oops! You can only add a vehicle as an driver.')
-        return redirect('profile')
-
-    # if Vehicle.objects.filter(driver = request.user).count() == 1:
-    #     messages.add_message(request, messages.INFO, 'Oops! You have already register your car. Maybe you want to edit your car?')
-    #     return redirect('profile')
 
     if request.method == 'POST':
         form = VehicleCreateForm(request.POST)
@@ -213,14 +222,9 @@ def addVehicle(request):
             car = form.save()
             car.driver = request.user
             oldcar = Vehicle.objects.filter(driver = request.user)
-            if oldcar.count() == 1:
-                oldcar = oldcar[0]
-                oldcar = car
-                try:
-                    oldcar.save()
-                except Exception as e:
-                    error="You can only register one vehicle!"
-                    return render(request, 'create_vehicle.html', {'form': form, "Rolename": Rolename,"error":error})
+            if oldcar.count() > 0:
+                error = 'You can only register one vehicle. Please update your car if want to do any modification.'
+                return render(request, 'create_vehicle.html', {'form': form, "Rolename":Rolename,"error":error})
             else:
                 car.save()
                 success="Successful registration!"
@@ -233,6 +237,13 @@ def addVehicle(request):
         form = VehicleCreateForm()
 
     return render(request, 'create_vehicle.html', {'form': form, "Rolename": Rolename})
+
+
+class VehicleUpdateView(UpdateView):
+    model = Vehicle
+    template_name = "update_vehicle.html"
+    context_object_name = 'vehicle'
+    form_class = VehicleCreateForm
 
 
 class RideUpdateView(UpdateView):

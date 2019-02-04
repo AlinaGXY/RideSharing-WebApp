@@ -15,6 +15,13 @@ class UserCreationForm(UserCreationForm):
         model = User
         fields = ("username", "email", "password1", "password2")
 
+class UserUpdateForm(forms.Form):
+    email = forms.EmailField(label="Email", required=True)
+
+    class Meta:
+        model = User
+        fields = ('email')
+
 
 class LoginForm(forms.Form):
 
