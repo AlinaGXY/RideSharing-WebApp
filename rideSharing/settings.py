@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'rideSharing.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rideSharing',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': '779889',
+        'PASSWORD':'lifengyi',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

@@ -85,6 +85,10 @@ class UserUpdateView(UpdateView):
     context_object_name = 'user'
     form_class = UserUpdateForm
 
+    def form_valid(self, form):
+        self.object.save()
+        return redirect("profile")
+
 
 @login_required
 def editRole(request):
@@ -122,12 +126,11 @@ def editRole(request):
 def profile(request):
     curusr = request.user
     Rolename=Role.objects.filter(users=curusr)[0].name
-
     if Vehicle.objects.filter(driver=curusr).count() !=0:
         currvehicle=Vehicle.objects.filter(driver=curusr)[0]
     else:
         currvehicle= None
-    return render(request, 'profile.html',{'Rolename':Rolename,'Vehicle':currvehicle})
+    return render(request, 'profile.html',{'Rolename':Rolename,'Vehicle':currvehicle,'user':curusr})
 
 
 class RideListView(ListView):
@@ -244,6 +247,10 @@ class VehicleUpdateView(UpdateView):
     template_name = "update_vehicle.html"
     context_object_name = 'vehicle'
     form_class = VehicleCreateForm
+    def form_valid(self, form):
+
+        self.object.save()
+        return redirect("profile")
 
 
 class RideUpdateView(UpdateView):

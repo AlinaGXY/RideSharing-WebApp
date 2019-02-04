@@ -15,12 +15,12 @@ class UserCreationForm(UserCreationForm):
         model = User
         fields = ("username", "email", "password1", "password2")
 
-class UserUpdateForm(forms.Form):
+class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField(label="Email", required=True)
 
     class Meta:
         model = User
-        fields = ('email')
+        fields = ('email',)
 
 
 class LoginForm(forms.Form):
