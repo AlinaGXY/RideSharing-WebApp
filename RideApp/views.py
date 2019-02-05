@@ -253,6 +253,12 @@ class RideUpdateView(UpdateView):
     form_class = RideCreateForm
 
     def form_valid(self, form):
+        if self.request.user.username != self.object.owner:
+            return redirect('logout')
+
+        if self.object.status.name != "public" and self.object.status.name != 'private':
+            return redirect('logout')
+
         ride = form.save() 
         self.object = ride
         self.object.passenger_number = ride.owner_number
