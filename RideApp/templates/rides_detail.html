@@ -10,30 +10,40 @@
         <li class="list-group-item">
             Passengers:
             {% for person in ride.passengers.all %}
-                {{ person.username }}
+                {{ person.username }}:
+                {{ person.email }}
             {% endfor %}
         </li>
-        <li class="list-group-item">Owner: {{ ride.owner }}</li>
+       <br/>
 
+        <li class="list-group-item">Owner Name: {{ ride.owner}}</li>
+        <li class="list-group-item">Owner Passenger Number: {{ ride.owner_number }}</li>
+
+      <br/>
+
+        <li class="list-group-item">Sharer Passenger Number: {{ ride.sharer_number }}</li>
+
+
+         <br/>
         <li class="list-group-item">Vehicle Type: {{ ride.vehicle_type }}</li>
-         {% if ride.status.name == "confirmed" %}
-         <li class="list-group-item">Driver Username: {{ driver.username }}</li>
-        <li class="list-group-item">Driver Email: {{ driver.email }}</li>
-        <li class="list-group-item">Driver's Vehicle Type: {{ driver.vehicle.type }}</li>
-         <li class="list-group-item">Driver's Vehicle Plate Number: {{ driver.vehicle.plate_number }}</li>
-        <li class="list-group-item">Driver's Vehicle Capacity: {{ driver.vehicle.capacity }}</li>
+        {% if ride.status.name == "confirmed" %}
+            <li class="list-group-item">Driver Username: {{ driver.username }}</li>
+            <li class="list-group-item">Driver Email: {{ driver.email }}</li>
+            <li class="list-group-item">Driver's Vehicle Type: {{ driver.vehicle.type }}</li>
+            <li class="list-group-item">Driver's Vehicle Plate Number: {{ driver.vehicle.plate_number }}</li>
+            <li class="list-group-item">Driver's Vehicle Capacity: {{ driver.vehicle.capacity }}</li>
 
 
-    {% endif %}
-    {% if ride.status.name == "completed" %}
-         <li class="list-group-item">Driver Username: {{ driver.username }}</li>
-        <li class="list-group-item">Driver Email: {{ driver.email }}</li>
-        <li class="list-group-item">Driver's Vehicle Type: {{ driver.vehicle.type }}</li>
-         <li class="list-group-item">Driver's Vehicle Plate Number: {{ driver.vehicle.plate_number }}</li>
-        <li class="list-group-item">Driver's Vehicle Capacity: {{ driver.vehicle.capacity }}</li>
+        {% endif %}
+        {% if ride.status.name == "completed" %}
+            <li class="list-group-item">Driver Username: {{ driver.username }}</li>
+            <li class="list-group-item">Driver Email: {{ driver.email }}</li>
+            <li class="list-group-item">Driver's Vehicle Type: {{ driver.vehicle.type }}</li>
+            <li class="list-group-item">Driver's Vehicle Plate Number: {{ driver.vehicle.plate_number }}</li>
+            <li class="list-group-item">Driver's Vehicle Capacity: {{ driver.vehicle.capacity }}</li>
 
 
-    {% endif %}
+        {% endif %}
         {% if ride.status.name == "public" %}
             <li class="list-group-item">Share Status: Open for share</li>
         {% else %}
@@ -43,11 +53,11 @@
             <li class="list-group-item">Ride Status: Pending</li>
         {% elif ride.status.name == "private" %}
             <li class="list-group-item">Ride Status: Pending</li>
-          {% elif ride.status.name == "shared" %}
+        {% elif ride.status.name == "shared" %}
             <li class="list-group-item">Ride Status: Pending</li>
         {% elif ride.status.name == "confirmed" %}
             <li class="list-group-item">Ride Status: Confirmed</li>
-            {% elif ride.status.name == "completed" %}
+        {% elif ride.status.name == "completed" %}
             <li class="list-group-item">Ride Status: Completed</li>
         {% endif %}
         <li class="list-group-item">Special: {{ ride.special }}</li>
