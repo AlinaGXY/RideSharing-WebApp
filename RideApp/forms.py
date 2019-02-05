@@ -43,7 +43,7 @@ class RoleForm(forms.Form):
 
 class RideCreateForm(forms.ModelForm):
     destination = forms.CharField(max_length = 100)
-    passenger_number = forms.IntegerField()
+    owner_number = forms.IntegerField()
     arrival_time = forms.DateTimeField(initial=timezone.now)
     shared_allowed = forms.BooleanField(required=False)
     vehicle_type = forms.CharField(max_length = 100, required=False)
@@ -51,7 +51,7 @@ class RideCreateForm(forms.ModelForm):
 
     class Meta:
         model = Rides
-        fields = ('destination', 'arrival_time', 'shared_allowed', 'passenger_number', 'vehicle_type', 'special')
+        fields = ('destination', 'arrival_time', 'shared_allowed', 'owner_number', 'vehicle_type', 'special')
 
     def clean_arrival_time(self):
         data = self.cleaned_data['arrival_time']
@@ -62,8 +62,8 @@ class RideCreateForm(forms.ModelForm):
 
         return data
 
-    def clean_passenger_number(self):
-        data = self.cleaned_data['passenger_number']
+    def clean_owner_number(self):
+        data = self.cleaned_data['owner_number']
 
         if data < 1:
             raise ValidationError('Invalid passenger number')

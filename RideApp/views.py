@@ -202,6 +202,7 @@ def RideCreate(request):
                 ride.status = s
             ride.owner = request.user.username
             ride.passengers.add(request.user)
+            ride.passenger_number = ride.owner_number
             ride.save()
             success="Create a ride successfully!"
             return render(request, 'create_ride.html', {'form': form, "Rolename":Rolename,"success":success})
@@ -262,6 +263,7 @@ class RideUpdateView(UpdateView):
     def form_valid(self, form):
         ride = form.save() 
         self.object = ride
+        self.object.passenger_number = ride.owner_number
         if ride.shared_allowed:
             s, created = RideStatus.objects.get_or_create(name = "public")
             self.object.status = s
@@ -400,12 +402,14 @@ def RideJoin(request, ride_id):
         s, created = RideStatus.objects.get_or_create(name = "shared")
         ride.status = s
         ride.passengers.add(user)
-        ride.passenger_number += SharerRequest.objects.filter(sharer=user)[0].passenger_number
+        party = SharerRequest.objects.filter(sharer=user)[0].passenger_number
+        ride.passenger_number += party
+        ride.sharer_number = party
         ride.save()
 
         # delete share request
         SharerRequest.objects.filter(sharer=user).delete()
         return redirect('user-rides')
     else:
-        messages.add_message(request, messages.INFO, 'Currently you can not join this ride')
-        return redirect('sharer-search')
+        error = 'Currently you can not join this ride'
+        return render(request, 'sharer_search.html', {'error': error})
