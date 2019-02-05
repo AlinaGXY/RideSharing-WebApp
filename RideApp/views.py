@@ -156,20 +156,6 @@ class RideListView(ListView):
         return context
 
 
-
-class RideDetailView(DetailView):
-    model = Rides
-    template_name = 'rides_detail.html'
-    context_object_name = "ride"
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        curusr = self.request.user
-        context['Rolename'] = Role.objects.filter(users=curusr)[0].name
-        return context
-
 def RideDetail(request, ride_id):
     user = request.user
     ride = Rides.objects.get(pk=ride_id)
@@ -178,7 +164,13 @@ def RideDetail(request, ride_id):
         driver = None
     else:
         driver = User.objects.get(username = ride.driver)
-    return render(request, 'rides_detail.html', {'ride' : ride, 'driver' : driver})
+    passengers = ride.passengers.all()
+    owner = passengers[0]
+    if passengers.count() > 1:
+        sharer = passengers[1]
+    else:
+        sharer = None
+    return render(request, 'rides_detail.html', {'ride' : ride, 'driver' : driver, 'owner' : owner, 'sharer' : sharer})
 
 
 # https://docs.djangoproject.com/zh-hans/2.1/ref/contrib/messages/#displaying-messages
