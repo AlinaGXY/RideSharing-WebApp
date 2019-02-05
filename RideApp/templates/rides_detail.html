@@ -60,10 +60,15 @@
                 <br/>
                 <button type="button"><a href="{% url 'ride-edit' ride.id %}">Edit</a></button>
             {% else %}
-                <br/>
+                {% if ride.status.name == "confirmed"%}
+                    <br/>
+                    <button type="button"><a href="{% url 'ride-complete' ride.id %}">Confirm</a></button>
+                {% endif %}
             {% endif %}
 
         {% endif %}
+
+
 
     </ul>
 
