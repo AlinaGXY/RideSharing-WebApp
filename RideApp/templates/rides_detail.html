@@ -85,7 +85,7 @@
         {% if ride.driver == user.username %}
             {% if ride.status.name == "confirmed"%}
                 <br/>
-                <button type="button"><a href="{% url 'ride-complete' ride.id %}">Confirm</a></button>
+                <button type="button"><a href="{% url 'ride-complete' ride.id %}">Complete</a></button>
             {% endif %}
         {% endif %}
 
