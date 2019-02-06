@@ -10,25 +10,33 @@
         <li class="list-group-item">
             Passengers:
             {% for person in ride.passengers.all %}
-                {{ person.username }}:
+                {{ person.username }}
             {% endfor %}
         </li>
         <li class="list-group-item">Vehicle Type: {{ ride.vehicle_type }}</li>
-        <br/>
-        <h4>Owner</h4>
-        <li class="list-group-item">Owner Username: {{ owner}}</li>
-        <li class="list-group-item">Owner Email: {{ owner.email}}</li>
-        <li class="list-group-item">Owner Passenger Number: {{ ride.owner_number }}</li>
+     
+        {% for person in ride.passengers.all %}
+            {% if person.username == ride.owner %}
+                <br/>
+	        <h4>Owner</h4>
+                <li class="list-group-item">Owner Username: {{ person.username}}</li>
+                <li class="list-group-item">Owner Email: {{ person.email}}</li>
+                <li class="list-group-item">Owner Passenger Number: {{ ride.owner_number }}</li>
+            {% else %}
+                <br/>
+                <h4>Sharer</h4>
+                <li class="list-group-item">Sharer Username: {{ person.username}}</li>
+                <li class="list-group-item">Sharer Email: {{ person.email}}</li>
+                <li class="list-group-item">Sharer Passenger Number: {{ ride.sharer_number }}</li>
+
+            {% endif %}
 
 
-        {% if sharer %}
-            <br/>
-            <h4>Sharer</h4>
-            <li class="list-group-item">Sharer Username: {{ sharer}}</li>
-            <li class="list-group-item">Sharer Email: {{ sharer.email}}</li>
-            <li class="list-group-item">Sharer Passenger Number: {{ ride.sharer_number }}</li>
 
-        {% endif %}
+        {% endfor %}
+
+
+
 
 
         {% if ride.status.name == "confirmed" %}

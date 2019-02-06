@@ -25,7 +25,7 @@ SECRET_KEY = 'l!9%t0jkzka$1)9_q^snj#r2zt!!zqp2383@u4%y$fuc6$5nkz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['web']
 
 
 # Application definition
@@ -77,10 +77,9 @@ WSGI_APPLICATION = 'rideSharing.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rideSharing',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD':'779889',
-        'HOST': '127.0.0.1',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
