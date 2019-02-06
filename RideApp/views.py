@@ -86,6 +86,8 @@ class UserUpdateView(UpdateView):
     form_class = UserUpdateForm
 
     def form_valid(self, form):
+        if self.request.user.username != self.object.username:
+            return redirect('logout')
         self.object.save()
         return redirect("profile")
 
@@ -320,13 +322,16 @@ def SharerSearch(request):
 def RideConfirm(request, ride_id):
     user = request.user
     ride = Rides.objects.get(pk=ride_id)
+    if Role.objects.filter(users=user)[0].name != 'driver':
+        return redirect('logout')
+        
     if ride.status.name != "confirmed" and ride.status.name != "completed":
         s, created = RideStatus.objects.get_or_create(name = "confirmed")
         ride.status = s
         ride.driver = user.username
         ride.save()
         send_mail(
-            'Your ride has been COMFIRMED!', 
+            'Hey! Your Ride Has Been COMFIRMED!', 
             'Hi, your ride has been confirmed by ' + user.username + " !", 
             'xinyigong96@hotmail.com', 
             [ person.email for person in ride.passengers.all() ]
