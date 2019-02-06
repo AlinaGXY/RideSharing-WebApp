@@ -327,7 +327,7 @@ def SharerSearch(request):
 def RideConfirm(request, ride_id):
     user = request.user
     ride = Rides.objects.get(pk=ride_id)
-    if Role.objects.filter(users=user)[0].name != 'Driver':
+    if Role.objects.filter(users=user)[0].name != 'driver':
         return redirect('logout')
         
     if ride.status.name != "confirmed" and ride.status.name != "completed":

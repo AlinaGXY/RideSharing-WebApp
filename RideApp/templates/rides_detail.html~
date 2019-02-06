@@ -25,8 +25,8 @@
             {% else %}
                 <br/>
                 <h4>Sharer</h4>
-                <li class="list-group-item">Sharer Username: {{ person.username}}</li>
-                <li class="list-group-item">Sharer Email: {{ person.email}}</li>
+                <li class="list-group-item">Sharer Username: {{ sharer}}</li>
+                <li class="list-group-item">Sharer Email: {{ sharer.email}}</li>
                 <li class="list-group-item">Sharer Passenger Number: {{ ride.sharer_number }}</li>
 
             {% endif %}
@@ -93,7 +93,7 @@
         {% if ride.driver == user.username %}
             {% if ride.status.name == "confirmed"%}
                 <br/>
-                <button type="button"><a href="{% url 'ride-complete' ride.id %}">Complete</a></button>
+                <button type="button"><a href="{% url 'ride-complete' ride.id %}">Confirm</a></button>
             {% endif %}
         {% endif %}
 
