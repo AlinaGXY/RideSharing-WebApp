@@ -44,6 +44,7 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
+# Owner or Sharer or Driver
 @login_required
 def chooseRole(request):
 
@@ -78,6 +79,7 @@ def chooseRole(request):
 
     return render(request, 'choose_role.html', {'form': form})
 
+# update email address
 class UserUpdateView(UpdateView):
     model = User
     template_name = "user_update.html"
@@ -91,6 +93,7 @@ class UserUpdateView(UpdateView):
         return redirect("profile")
 
 
+# login as another role
 @login_required
 def editRole(request):
 
@@ -126,6 +129,7 @@ def editRole(request):
     return render(request, 'choose_role.html', {'form': form, "Rolename":Rolename})
 
 
+# homepage
 @login_required
 def profile(request):
     curusr = request.user
@@ -139,6 +143,8 @@ def profile(request):
         )
 
 
+# return all the rides of the user (as a passenger/as a driver)
+# depends on the current role
 class RideListView(ListView):
     model = Rides
     template_name = 'rides_list.html'
@@ -161,11 +167,12 @@ class RideListView(ListView):
         context['Rolename'] = Role.objects.filter(users=curusr)[0].name
         return context
 
-
+# show the detail of the ride given ride id
+# TODO check the authentication: able to check detail ot not
+@ login_required
 def RideDetail(request, ride_id):
     user = request.user
     ride = Rides.objects.get(pk=ride_id)
-    Rolename = Role.objects.filter(users=user)[0].name
     if ride.driver == None or ride.driver == '':
         driver = None
     else:
@@ -187,7 +194,8 @@ def RideDetail(request, ride_id):
         )
 
 
-# https://docs.djangoproject.com/zh-hans/2.1/ref/contrib/messages/#displaying-messages
+# owner can create a new ride
+# no limit on the number of unconfirmed order
 @login_required
 def RideCreate(request):
     curusr = request.user
@@ -224,6 +232,7 @@ def RideCreate(request):
     return render(request, 'create_ride.html', {'form': form, "Rolename":Rolename})
 
 
+# Driver has to register one and only one vehicle 
 @login_required
 def addVehicle(request):
     curusr = request.user
@@ -258,6 +267,8 @@ def addVehicle(request):
     return render(request, 'create_vehicle.html', {'form': form, "Rolename": Rolename})
 
 
+# driver can update their vehicle info
+# TODO check if the user is the driver
 class VehicleUpdateView(UpdateView):
     model = Vehicle
     template_name = "update_vehicle.html"
@@ -269,6 +280,7 @@ class VehicleUpdateView(UpdateView):
         return redirect("profile")
 
 
+# Owner is able to update the ride before it is joined or confirmed
 class RideUpdateView(UpdateView):
     model = Rides
     template_name = 'ride_edit.html'
@@ -295,6 +307,7 @@ class RideUpdateView(UpdateView):
         return redirect("user-rides")
 
 
+# return a list of open ride whose requirement fits driver's vehicle
 @login_required
 def DriverSearch(request):
     user = request.user
@@ -317,6 +330,7 @@ def DriverSearch(request):
     return render(request, 'driver_search.html', {'rides':result, "Rolename":Rolename})
 
 
+# return a list of open sharing ride that fit sharer's requirement
 @login_required
 def SharerSearch(request):
     user = request.user
@@ -339,6 +353,8 @@ def SharerSearch(request):
                 {'rides':result, "Rolename":Rolename, "condition":condition})
 
 
+# confirm: check role, check ride status
+# send email to all the passengers
 @login_required
 def RideConfirm(request, ride_id):
     user = request.user
@@ -362,7 +378,8 @@ def RideConfirm(request, ride_id):
         messages.add_message(request, messages.INFO, "This ride has been confirmed by others!")
         return redirect('driver-search')
 
-
+# complete a ride
+# check driver and ride status
 @login_required
 def RideComplete(request, ride_id):
     user = request.user
@@ -377,21 +394,23 @@ def RideComplete(request, ride_id):
         return redirect('user-rides')
 
 
+# sharer enter the criteria
+# one sharer only need one request object -> delete the old one 
 @login_required
 def SharerRequestCreate(request):
     user = request.user
 
     Rolename = Role.objects.filter(users=user)[0].name
     if Rolename != "Sharer":
-        messages.add_message(request, messages.INFO, 'Oops! You can only add a vehicle as an sharer.')
         return redirect('profile')
     if request.method == 'POST':
         form = SharerRequestCreateForm(request.POST)
         try:
             form.is_valid()
-        except Exception as e:
+        except:
             error = "Invalid input!"
-            return render(request, 'sharer_condition.html', {'form': form, "Rolename": Rolename, "error": error})
+            return render(request, 'sharer_condition.html', 
+            {'form': form, "Rolename": Rolename, "error": error})
 
         condition = form.save()
         condition.sharer = user
@@ -418,6 +437,7 @@ class SharerRequestUpdateView(UpdateView):
     form_class = SharerRequestCreateForm
 
 
+# sharer join ride, update passenger number and status
 @login_required
 def RideJoin(request, ride_id):
     user = request.user
